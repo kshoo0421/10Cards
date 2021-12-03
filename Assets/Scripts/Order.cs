@@ -17,7 +17,7 @@ public class Order : MonoBehaviour
 
     public void SetMostFrontOrder(bool isMostFront) // originOrder값이 0일 때를 대비
     {
-        SetOrder(isMostFront ? 100 : originOrder);  // 0이면 100, 아니면 본래 값 반환
+        SetOrder(isMostFront ? 100 : originOrder);  // 참이면 가장 앞쪽에 배치, 아니면 기존대로 배치
     }
    
     public void SetOrder(int order) // 외부에서 이름만 입력하면

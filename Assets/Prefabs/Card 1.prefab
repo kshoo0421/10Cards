@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7168613235147681677}
   - component: {fileID: 7168613235147681672}
   - component: {fileID: 7168613235147681679}
+  - component: {fileID: 1453627363}
   m_Layer: 0
   m_Name: Card 1
   m_TagString: Untagged
@@ -135,6 +136,39 @@ MonoBehaviour:
   - {fileID: 7168613235829445046}
   - {fileID: 7168613236164918042}
   sortingLayerName: Card
+--- !u!60 &1453627363
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7168613235147681676}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.9375, y: 3.875}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.46875, y: 1.9375}
+      - {x: -1.46875, y: -1.9375}
+      - {x: -0.8450555, y: -1.9345533}
+      - {x: -0.5868597, y: -2.8270273}
+      - {x: 0.33004835, y: -2.8601332}
+      - {x: 0.53697026, y: -1.9291604}
+      - {x: 1.4695417, y: -1.9308227}
+      - {x: 1.46875, y: 1.9375}
 --- !u!1 &7168613235829445044
 GameObject:
   m_ObjectHideFlags: 0

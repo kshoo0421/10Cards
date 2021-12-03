@@ -56,19 +56,18 @@ public class Card : MonoBehaviour
         }
     }
 
-    /*
     void OnMouseOver()
     {
         if (isFront)
             CardManager.Inst.CardMouseOver(this);
     }
-
     void OnMouseExit()
     {
         if (isFront)
             CardManager.Inst.CardMouseExit(this);
     }
 
+    
     void OnMouseDown()
     {
         if (isFront)
@@ -80,5 +79,4 @@ public class Card : MonoBehaviour
         if (isFront)
             CardManager.Inst.CardMouseUp();
     }
-    */
 }

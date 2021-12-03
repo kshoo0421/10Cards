@@ -21,19 +21,14 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform myCardRight;
     [SerializeField] Transform otherCardLeft;
     [SerializeField] Transform otherCardRight;  // cardSpawnPoint, myCardLeft, myCardRight, otherCardLeft, otherCardRight의 위치와 스크립트 연결
-
-    /*
-        [SerializeField] ECardState eCardState; // 마우스 클릭/드래그 여부 확인용
-    */
+    [SerializeField] ECardState eCardState; // 마우스 클릭/드래그 여부 확인용
 
     List<Item> itemBuffer;  // 아이템 버퍼 리스트 선언
-    /*
     Card selectCard;    // 선택한 카드 변수 선언
     bool isMyCardDrag;  // 내 카드 드래그 여부 변수 선언
     bool onMyCardArea;  // 내 카드 영역(카드 확대 영역)
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag } // ECardState는 1. 아무 것도 안되는 경우, 2. 확대만 되는 경우, 3. 드래그까지 되는 경우로 나뉨
-    int myPutCount; // 내 턴에 카드 놓기 제한
-    */
+    // int myPutCount; // 내 턴에 카드 놓기 제한
     // 초기 변수 선언 끝------------------------------------------------------------------------------------------------------------------
 
     // 각종 카드 정렬
@@ -131,24 +126,25 @@ public class CardManager : MonoBehaviour
             itemBuffer[rand] = temp;    // i번째 아이템은 그 랜덤위치로 바꿈
         }
     }
+
+    void CardDrag() // 카드 드래그 함수
+    {
+        if (!onMyCardArea)  // 내 카드 영역 벗어나면
+        {
+         /*
+            if (eCardState != ECardState.CanMouseDrag)  // 마우스 드래그 가능한 상태가 아니라면(드래그 불가)
+                return; // 그대로 반환
+         */
+            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false); // 카드 움직임, 두트윈 사용X
+         //   EntityManager.Inst.InsertMyEmptyEntity(Utils.MousePos.x);   // x축에 맞춰 빈 엔티티 생성(위치 잡는 용도)
+        }
+    }
     /*
     
     void OnTurnStarted(bool myTurn) // 턴 시작 시
     {
         if (myTurn) // 내 턴이면
             myPutCount = 0; // 카드 놓을 수 있음
-    }
-
-    void CardDrag() // 카드 드래그 함수
-    {
-        if (!onMyCardArea)  // 내 카드 영역 벗어나면
-        {
-            if (eCardState != ECardState.CanMouseDrag)  // 마우스 드래그 가능한 상태가 아니라면(드래그 불가)
-                return; // 그대로 반환
-
-            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false); // 카드 움직임, 두트윈 사용X
-            EntityManager.Inst.InsertMyEmptyEntity(Utils.MousePos.x);   // x축에 맞춰 빈 엔티티 생성(위치 잡는 용도)
-        }
     }
 
     public bool TryPutCard(bool isMine) // 카드 놓기 함수
@@ -189,25 +185,18 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         SetupItemBuffer();  // 아이템 섞기
-        // TurnManager.OnAddCard += AddCard;   // TurnManager가 OnAddCard를 호출하면 AddCard함수 호출
+        TurnManager.OnAddCard += AddCard;   // TurnManager가 OnAddCard를 호출하면 AddCard함수 호출
         // TurnManager.OnTurnStarted += OnTurnStarted; // TurnManager가 OnTurnStarted를 호출하면 OnTurnStarted함수 호출
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-            AddCard(true);
-
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-            AddCard(false);
-
-        /*
         if (isMyCardDrag)   // 내 카드 드래그 O
             CardDrag(); // 카드 드래그
 
         DetectCardArea();   // 카드 범위 인식
+       
         SetECardState();    // 카드 선택 가능 유무
-        */
     }
 
     void AddCard(bool isMine)   // 내 카드인지 아닌지
@@ -221,51 +210,65 @@ public class CardManager : MonoBehaviour
         CardAlignment(isMine);  // 카드들 위치 정렬
     }
 
-
-    /*
     void OnDestroy()
     {
         TurnManager.OnAddCard -= AddCard;   // TurnManager가 OnAddCard 호출 취소하면 AddCard 함수 호출 취소
-        TurnManager.OnTurnStarted -= OnTurnStarted; // TurnManager가 OnTurnStarted 호출 취소하면 OnTurnStarted 함수 호출 취소
+        // TurnManager.OnTurnStarted -= OnTurnStarted; // TurnManager가 OnTurnStarted 호출 취소하면 OnTurnStarted 함수 호출 취소
     }
+    
     // 게임 진행 끝------------------------------------------------------------------------------------------------
-
-
-
+    
     #region MyCard
-    public void CardMouseOver(Card card)
+
+    public void CardMouseOver(Card card)    // 마우스 올리기
     {
         if (eCardState == ECardState.Nothing)
             return;
-
+        
         selectCard = card;
         EnlargeCard(true, card);
     }
 
-    public void CardMouseExit(Card card)
+    public void CardMouseExit(Card card)    // 마우스 올리기 해제
     {
-        EnlargeCard(false, card);
+        EnlargeCard(false, card); 
     }
-
-    public void CardMouseDown()
+    
+    public void CardMouseDown() // 클릭 중
     {
         if (eCardState != ECardState.CanMouseDrag)
             return;
-
+        
         isMyCardDrag = true;
     }
 
-    public void CardMouseUp()
+    public void CardMouseUp()   // 클릭 해제
     {
         isMyCardDrag = false;
 
         if (eCardState != ECardState.CanMouseDrag)
             return;
 
+        /*
         if (onMyCardArea)
             EntityManager.Inst.RemoveMyEmptyEntity();
         else
             TryPutCard(true);
+        */
+    }
+
+    void EnlargeCard(bool isEnlarge, Card card)
+    {
+        if (isEnlarge)
+        {
+            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -65f, -10f);
+
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 13.5f), false);
+        }
+        else
+            card.MoveTransform(card.originPRS, false);
+
+        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
     }
 
     void DetectCardArea()   // 카드 범위 인식
@@ -275,31 +278,16 @@ public class CardManager : MonoBehaviour
         onMyCardArea = Array.Exists(hits, x => x.collider.gameObject.layer == layer);   // onMyCardArea에 충돌하는 영역 설정
     }
 
-    void EnlargeCard(bool isEnlarge, Card card)
-    {
-        if (isEnlarge)
-        {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -4.8f, -10f);
-
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 3.5f), false);
-        }
-        else
-            card.MoveTransform(card.originPRS, false);
-
-        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
-    }
-
     void SetECardState()    // 카드 선택 가능 유무
     {
         if (TurnManager.Inst.isLoading) // 로딩 중이면
             eCardState = ECardState.Nothing;    // 카드 선택 안됨
 
-        else if (!TurnManager.Inst.myTurn || myPutCount == 1 || EntityManager.Inst.IsFullMyEntities)    // 내 턴이 아니거나, 이미 1장을 냈거나, 엔티티가 다 찼으면
+        else if (!TurnManager.Inst.myTurn)    // 내 턴이 아니거나, 이미 1장을 냈거나, 엔티티가 다 찼으면
             eCardState = ECardState.CanMouseOver;   // 카드 확대만 가능
 
-        else if (TurnManager.Inst.myTurn && myPutCount == 0)    // 내 턴이면서 내가 낸 카드가 없으면
+        else if (TurnManager.Inst.myTurn)    // 내 턴이면서 내가 낸 카드가 없으면
             eCardState = ECardState.CanMouseDrag;   // 마우스 드래그 가능
     }
     #endregion
-*/
 }
