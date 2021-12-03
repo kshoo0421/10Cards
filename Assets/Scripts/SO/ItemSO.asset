@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a09b882afd4f614984dd995bf1a4045, type: 3}
+  m_Name: ItemSO
+  m_EditorClassIdentifier: 
+  items:
+  - name: "\uB4A4\uD1B5\uC218"
+    effect: "\uC0C1\uB300 \uB371 1\uC7A5\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 1
+  - name: "\uB3C4\uBCBD"
+    effect: "\uC0C1\uB300 \uB371 1\uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 2
+  - name: "\uB3C4\uBC15"
+    effect: "\uC0C1\uB300 \uB371 2\uC7A5\uC744 \uC0C1\uB300\uAC00 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 3
+  - name: "\uC704\uD611"
+    effect: "\uC0C1\uB300 \uD328 1\uC7A5\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 4
+  - name: "\uD6C8\uC218"
+    effect: "\uC0C1\uB300 \uD328 1\uC7A5\uC744 \uB0B4\uAC00 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 5
+  - name: "\uC81C\uBE44\uBF51\uAE30"
+    effect: "\uC0C1\uB300 \uD328 1\uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 6
+  - name: "\uC218\uAC11"
+    effect: "\uC0C1\uB300\uB294 \uB2E4\uC74C \uD134\uC5D0 1\uC7A5\uB9CC \uC0AC\uC6A9\uD560
+      \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 7
+  - name: "\uAC10\uC0AC\uD569\uB2C8\uB2E4."
+    effect: "\uC0C1\uB300 \uC218\uAC70\uD568\uC5D0\uC11C \uBB34\uC791\uC704\uB85C
+      \uCE74\uB4DC 1\uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 8
+  - name: "\uB2EC\uB9AC\uAE30"
+    effect: "\uB0B4 \uB371\uC5D0\uC11C 2\uC7A5\uC744 \uBF51\uC2B5\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 9
+  - name: "\uBC11\uC7A5 \uBE7C\uAE30"
+    effect: "\uB0B4 \uB371 1\uC7A5\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 10
+  - name: "\uB300\uCD9C"
+    effect: "\uB0B4 \uB371 2\uC7A5\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 11
+  - name: "\uC7AC\uD65C\uC6A9\uD488"
+    effect: "\uB0B4 \uB371\uC5D0 \uC774 \uCE74\uB4DC\uB97C \uB123\uC2B5\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 12
+  - name: "\uC62C\uC778"
+    effect: "\uB0B4 \uD328\uB97C \uBAA8\uB450 \uBC84\uB9AC\uACE0, \uADF8\uB9CC\uD07C
+      \uC0C1\uB300 \uB371\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 13
+  - name: "\uBD84\uB9AC\uC218\uAC70"
+    effect: "\uB0B4 \uC218\uAC70\uD568\uC5D0\uC11C \uBB34\uC791\uC704\uB85C \uCE74\uB4DC
+      1\uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 14
+  - name: "\uAC70\uC6B8\uCE58\uB8CC"
+    effect: "\uC9C0\uB09C \uD134\uC5D0 \uC0C1\uB300\uAC00 \uC0AC\uC6A9\uD588\uB358
+      \uCE74\uB4DC\uB4E4\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 15
+  - name: "\uD615\uB2D8 \uBA3C\uC800"
+    effect: "\uC11C\uB85C \uB371 1\uC7A5\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 16
+  - name: "\uC0C1\uBD80\uC0C1\uC870"
+    effect: "\uC11C\uB85C \uB371 1\uC7A5\uC744 \uBF51\uC2B5\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 17
+  - name: "\uAD50\uD658"
+    effect: "\uC11C\uB85C\uC758 \uD328\uC5D0\uC11C \uBB34\uC791\uC704\uB85C 1\uC7A5\uC744
+      \uAC00\uC838\uC635\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 18
+  - name: "\uB300\uCCAD\uC18C"
+    effect: "\uC11C\uB85C \uD328\uB97C \uBAA8\uB450 \uBC84\uB9BD\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 19
+  - name: "\uB0A8\uC758 \uB5A1"
+    effect: "\uC11C\uB85C \uBB34\uC791\uC704\uB85C \uC0C1\uB300 \uD328 1\uC7A5\uC744
+      \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    percent: 1
+    effectNumber: 20
