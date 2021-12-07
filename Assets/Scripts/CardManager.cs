@@ -24,8 +24,6 @@ public class CardManager : MonoBehaviour
     [SerializeField] ECardState eCardState; // 마우스 클릭/드래그 여부 확인용
     [SerializeField] TMP_Text myDeckTMP;  // 내 덱 TMP
     [SerializeField] TMP_Text otherDeckTMP;  // 상대 덱 TMP
-    [SerializeField] TMP_Text myEntityTMP;  // 내 묘지 TMP
-    [SerializeField] TMP_Text otherEntityTMP;  // 상대 묘지 TMP
     [SerializeField] Transform myEntitySpawnPoint;
     [SerializeField] Transform otherEntitySpawnPoint;
 
@@ -199,7 +197,7 @@ public class CardManager : MonoBehaviour
 
     void OnTurnStarted(bool myTurn) // 턴 시작 시
     {
-        if (myTurn) // 내 턴이면
+        if (myTurn == true) // 내 턴이면
             myPutCount = 0; // 카드 놓을 수 있음
     }
    
@@ -235,12 +233,10 @@ public class CardManager : MonoBehaviour
         }
     }
     
-    void CountNumbering()
+    void CountNumbering()   // 내 덱 카운트
     {
         myDeckTMP.text = this.myDeckCount.Count.ToString();
         otherDeckTMP.text = this.otherDeckCount.Count.ToString();
-        // myEntityTMP.text = this.myEntity.Count.ToString();
-        // otherEntityTMP.text = this.otherEntity.Count.ToString();
     }
 
     // #region 마우스 설정

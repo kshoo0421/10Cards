@@ -61,7 +61,6 @@ public class TurnManager : MonoBehaviour
     IEnumerator StartTurnCo()   // 턴 시작 함수
     {
         isLoading = true;   // 로딩 중 표시(기타 행동 방지)
-      
         if (myTurn) // 내 턴이면
             GameManager.Inst.Notification("나의 턴");  // 나의 턴 표시
       
@@ -69,6 +68,7 @@ public class TurnManager : MonoBehaviour
         OnAddCard?.Invoke(myTurn);  // OnAddCard = true
         yield return delay07;   // 속도 : delay07
         isLoading = false;  // 로딩 끝 = 입력 가능
+        
         OnTurnStarted?.Invoke(myTurn);  // OnTurnStarted = true; 내 턴 시작
     }
 

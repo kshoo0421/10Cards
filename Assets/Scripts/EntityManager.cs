@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;    // TMP 사용
 
 public class EntityManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class EntityManager : MonoBehaviour
     [SerializeField] List<Entity> otherEntities;    // 상대 엔티티 목록
     [SerializeField] Transform showEntity;  // 보여주기 위치
     [SerializeField] Entity myEmptyEntity;  // 빈 엔티티 생성
+    [SerializeField] TMP_Text myEntityTMP;  // 내 묘지 TMP
+    [SerializeField] TMP_Text otherEntityTMP;  // 상대 묘지 TMP
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);  // 빈 entity의 존재유무 조건 : 
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);    // 
     bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading;
@@ -29,10 +32,22 @@ public class EntityManager : MonoBehaviour
         TurnManager.OnTurnStarted += OnTurnStarted; // OnTurnStarted 활성화 => 여기서도 활성화
     }
 
+    void Update()
+    {
+        CountNumbering();
+    }
+
     void OnDestroy()
     {
         TurnManager.OnTurnStarted -= OnTurnStarted; // 비활성화 => 여기서도 비활성화
     }
+
+    void CountNumbering()   // 내 덱 카운트
+    {
+        myEntityTMP.text = this.myEntities.Count.ToString();
+        otherEntityTMP.text = this.otherEntities.Count.ToString();
+    }
+
 
     // 관련 함수
 
