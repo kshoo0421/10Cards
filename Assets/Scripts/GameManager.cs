@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     void Awake() => Inst = this;    // Inst = GameManager 스크립트
 
     [SerializeField] NotificationPanel notificationPanel;   // 메세지 출력용 패널
-
+    WaitForSeconds delay2 = new WaitForSeconds(2);
     /*
     [Multiline(10)]
     [SerializeField] string cheatInfo;
@@ -17,31 +17,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] TitlePanel titlePanel;
     [SerializeField] CameraEffect cameraEffect;
     [SerializeField] GameObject endTurnBtn;
-
-    WaitForSeconds delay2 = new WaitForSeconds(2);
     */
+    
+    // 게임 진행
+
     void Start()    // 게임 시작
     {
-        StartGame();
+        StartGame();    // public으로 받으려고 따로 뺌
         // UISetup();
     }
-    /*
-    void UISetup()
-    {
-        notificationPanel.ScaleZero();
-        resultPanel.ScaleZero();
-        titlePanel.Active(true);
-        cameraEffect.SetGrayScale(false);
-    }
-    */
-
-    void Update()
+    
+    void Update()   // 치트키 입력
     {
 #if UNITY_EDITOR    // 유니티(에디터)에서 치트키 사용(게임 내 X)
         InputCheatKey();    // 치트키 입력 시 설정대로 실행
 #endif
     }
 
+    // 관련 함수
     void InputCheatKey()    // 치트키 목록
     {
         if (Input.GetKeyDown(KeyCode.Keypad1))  // 1번 누르면
@@ -49,25 +42,16 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad2))  // 2번 누르면
             TurnManager.OnAddCard?.Invoke(false); // 상대 카드 추가
+
         if (Input.GetKeyDown(KeyCode.Keypad3))  // 3번 누르면
             TurnManager.Inst.EndTurn(); // 턴 종료
 
-        if (Input.GetKeyDown(KeyCode.Keypad4))  // 3번 누르면
-            Debug.Log("콘솔창 확인용");
-
-        /*
         if (Input.GetKeyDown(KeyCode.Keypad4))  // 4번 누르면
             CardManager.Inst.TryPutCard(false); // 상대가 카드를 냄
 
-        if (Input.GetKeyDown(KeyCode.Keypad5))  // 5번 누르면
-            EntityManager.Inst.DamageBoss(true, 19);    // 나한테 19뎀
-
-        if (Input.GetKeyDown(KeyCode.Keypad6))  // 6번 누르면
-            EntityManager.Inst.DamageBoss(false, 19);   // 적한테 19뎀
-        */
     }
 
-    public void StartGame() // 게임 시작 함수
+    public void StartGame() // 게임 시작 함수 호출
     {
         StartCoroutine(TurnManager.Inst.StartGameCo()); // 게임 시작 함수 호출, 코루틴 실행
     }
@@ -79,6 +63,14 @@ public class GameManager : MonoBehaviour
 
 
     /*
+     * void UISetup()
+    {
+        notificationPanel.ScaleZero();
+        resultPanel.ScaleZero();
+        titlePanel.Active(true);
+        cameraEffect.SetGrayScale(false);
+    }
+
     public IEnumerator GameOver(bool isMyWin)
     {
         TurnManager.Inst.isLoading = true;
