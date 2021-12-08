@@ -8,23 +8,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst { get; private set; }
     void Awake() => Inst = this;    // Inst = GameManager 스크립트
 
-    [SerializeField] NotificationPanel notificationPanel;   // 메세지 출력용 패널
-    WaitForSeconds delay2 = new WaitForSeconds(2);
-    /*
     [Multiline(10)]
-    [SerializeField] string cheatInfo;
+    [SerializeField] NotificationPanel notificationPanel;   // 메세지 출력용 패널
+    WaitForSeconds delay1 = new WaitForSeconds(1);
     [SerializeField] ResultPanel resultPanel;
+    [SerializeField] GameObject endTurnBtn;
     [SerializeField] TitlePanel titlePanel;
     [SerializeField] CameraEffect cameraEffect;
-    [SerializeField] GameObject endTurnBtn;
-    */
-    
+
     // 게임 진행
 
     void Start()    // 게임 시작
     {
-        StartGame();    // public으로 받으려고 따로 뺌
-        // UISetup();
+        UISetup();
     }
     
     void Update()   // 치트키 입력
@@ -48,7 +44,6 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad4))  // 4번 누르면
             CardManager.Inst.TryPutCard(false); // 상대가 카드를 냄
-
     }
 
     public void StartGame() // 게임 시작 함수 호출
@@ -61,9 +56,7 @@ public class GameManager : MonoBehaviour
         notificationPanel.Show(message);    // show함수 출력(notificationPanel에 메세지 출력)
     }
 
-
-    /*
-     * void UISetup()
+    void UISetup()
     {
         notificationPanel.ScaleZero();
         resultPanel.ScaleZero();
@@ -75,11 +68,11 @@ public class GameManager : MonoBehaviour
     {
         TurnManager.Inst.isLoading = true;
         endTurnBtn.SetActive(false);
-        yield return delay2;
+        yield return delay1;
 
         TurnManager.Inst.isLoading = true;
         resultPanel.Show(isMyWin ? "승리" : "패배");
         cameraEffect.SetGrayScale(true);
+        
     }
-    */
 }

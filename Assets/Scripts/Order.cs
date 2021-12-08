@@ -23,7 +23,7 @@ public class Order : MonoBehaviour
     public void SetOrder(int order) // 외부에서 이름만 입력하면
     {
         int mulOrder = order * 10;  // 거기에 10을 곱하고(간격을 두고)
-
+ 
         foreach (var renderer in backRenderers) // 뒤쪽의 Renderer들을
         {
             renderer.sortingLayerName = sortingLayerName;   //  SortingLayer(분류) 먼저 해주고

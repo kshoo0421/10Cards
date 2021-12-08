@@ -337,6 +337,7 @@
 /define:UNITY_TEAM_LICENSE
 /define:UNITY_UNITYADS_API
 /define:USE_SEARCH_ENGINE_API
+Assets\Scripts\CameraEffect.cs
 Assets\Scripts\Card.cs
 Assets\Scripts\CardManager.cs
 Assets\Scripts\Entity.cs
@@ -347,4 +348,6 @@ Assets\Scripts\SO\ItemSO.cs
 Assets\Scripts\TurnManager.cs
 Assets\Scripts\UI\EndTurnButton.cs
 Assets\Scripts\UI\NotificationPanel.cs
+Assets\Scripts\UI\ResultPanel.cs
+Assets\Scripts\UI\TitlePanel.cs
 Assets\Scripts\Utils.cs

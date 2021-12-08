@@ -26,9 +26,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] TMP_Text otherDeckTMP;  // 상대 덱 TMP
     [SerializeField] Transform myEntitySpawnPoint;
     [SerializeField] Transform otherEntitySpawnPoint;
+    [SerializeField] TMP_Text TurnCardTMP;  // 낸 카드 수 TMP
+    [SerializeField] TMP_Text MaxCardTMP;  // 최대 카드 수 TMP
+    [SerializeField] GameObject myBackCard;  // 낸 카드 수 TMP
+    [SerializeField] GameObject otherBackCard;  // 최대 카드 수 TMP
 
-    List<Item> myDeckCount;  // 아이템 버퍼 리스트 선언
-    List<Item> otherDeckCount;  // 아이템 버퍼 리스트 선언
+    public List<Item> myDeckCount;  // 아이템 버퍼 리스트 선언
+    public List<Item> otherDeckCount;  // 아이템 버퍼 리스트 선언
     Card selectCard;    // 선택한 카드 변수 선언
     bool isMyCardDrag;  // 내 카드 드래그 여부 변수 선언
     bool onMyCardArea;  // 내 카드 영역(카드 확대 영역)
@@ -68,13 +72,14 @@ public class CardManager : MonoBehaviour
 
     void AddCard(bool isMine)   // 내 카드인지 아닌지
     {
-        var cardObject = Instantiate(cardPrefab, cardSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
+        var cardObject = Instantiate(cardPrefab, isMine ? cardSpawnPoint.position : otherCardSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
         var card = cardObject.GetComponent<Card>(); // card는 Card 스크립트 내용의 변수
         card.Setup(PopItem(isMine), isMine);  // 나 or 상대 카드 뽑기
         (isMine ? myCards : otherCards).Add(card);  // 내꺼면 내 카드, 아니면 상대 카드 추가
 
         SetOriginOrder(isMine); // 카드 레이어 순서 정렬
         CardAlignment(isMine);  // 카드들 위치 정렬
+
     }
 
     void SetOriginOrder(bool isMine)    // 레이어 정렬
@@ -87,7 +92,7 @@ public class CardManager : MonoBehaviour
         }
     }
     
-    void CardAlignment(bool isMine) // 카드 위치 정렬(내 카드 or 상대 위치)
+    void CardAlignment(bool isMine) // 패 위치 정렬(내 카드 or 상대 위치)
     {
     
         List<PRS> originCardPRSs = new List<PRS>(); // 카드 리스트의 위치, 회전, 크기
@@ -232,11 +237,22 @@ public class CardManager : MonoBehaviour
             return false;
         }
     }
-    
+
     void CountNumbering()   // 내 덱 카운트
     {
         myDeckTMP.text = this.myDeckCount.Count.ToString();
         otherDeckTMP.text = this.otherDeckCount.Count.ToString();
+        if (this.myDeckCount.Count == 0)
+        {
+            myBackCard.SetActive(false);
+            StartCoroutine(GameManager.Inst.GameOver(false));
+        }
+        else if (this.otherDeckCount.Count == 0)
+        { 
+            otherBackCard.SetActive(false);
+            StartCoroutine(GameManager.Inst.GameOver(true));
+        }
+        TurnCardTMP.text = this.myPutCount.ToString();
     }
 
     // #region 마우스 설정

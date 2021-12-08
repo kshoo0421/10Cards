@@ -15,9 +15,11 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Entity myEmptyEntity;  // 빈 엔티티 생성
     [SerializeField] TMP_Text myEntityTMP;  // 내 묘지 TMP
     [SerializeField] TMP_Text otherEntityTMP;  // 상대 묘지 TMP
+
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);  // 빈 entity의 존재유무 조건 : 
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);    // 
     bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading;
+    public int otherPutCard;    // 상대 카드 수
 
     Entity selectEntity;
     Entity targetPickEntity;
@@ -42,27 +44,32 @@ public class EntityManager : MonoBehaviour
         TurnManager.OnTurnStarted -= OnTurnStarted; // 비활성화 => 여기서도 비활성화
     }
 
+
     void CountNumbering()   // 내 덱 카운트
     {
-        myEntityTMP.text = this.myEntities.Count.ToString();
+         myEntityTMP.text = this.myEntities.Count.ToString();
         otherEntityTMP.text = this.otherEntities.Count.ToString();
     }
-
 
     // 관련 함수
 
     void OnTurnStarted(bool myTurn) // 상대 턴에 AI 실행
     {
         if (!myTurn)
+        {
+            otherPutCard = 0;
             StartCoroutine(AICo());
+        }
     }
 
     IEnumerator AICo()  // 상대 AI 설정
     {
         CardManager.Inst.TryPutCard(false); // 카드 냄
+        otherPutCard++;
         yield return delay1;    // 1초 대기
-
+        
         CardManager.Inst.TryPutCard(false); // 카드 냄
+        otherPutCard++;
         yield return delay1;    // 1초 대기
 
         TurnManager.Inst.EndTurn(); // 턴 종료
@@ -72,14 +79,13 @@ public class EntityManager : MonoBehaviour
     {
         float targetX = isMine ? -21.4f : 21.7f;
         float targetY = isMine ? -37.2f : 36.7f;    // other / my에 따라 y좌표 변경
-        var targetEntities = isMine ? myEntities : otherEntities;   // target entities도 my/other 구분
+        var targetEntities = isMine ? myEntities: otherEntities;   // target entities도 my/other 구분
 
         for (int i = 0; i < targetEntities.Count; i++)  // entity 수만큼 반복 
         {
             var targetEntity = targetEntities[i];   // entity 하나하나 지정
             targetEntity.originPos = new Vector3(targetX, targetY, 0);  // 각 entity 위치 정렬
             targetEntity.MoveTransform(targetEntity.originPos, true, 0.5f); // DoTween 사용해서 위치 옮김
-            targetEntity.GetComponent<Order>()?.SetOriginOrder(i);  // 
         }
     }
 
@@ -116,9 +122,11 @@ public class EntityManager : MonoBehaviour
 
         entity.isMine = isMine;
         entity.Setup(item);
+
+        var targetEntities = isMine ? myEntities : otherEntities;
+        entity.GetComponent<Order>().SetOriginOrder(targetEntities.Count);
         EntityAlignment(isMine);
 
         return true;
     }
-
 }
