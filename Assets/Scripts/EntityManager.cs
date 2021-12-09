@@ -15,6 +15,8 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Entity myEmptyEntity;  // 빈 엔티티 생성
     [SerializeField] TMP_Text myEntityTMP;  // 내 묘지 TMP
     [SerializeField] TMP_Text otherEntityTMP;  // 상대 묘지 TMP
+    [SerializeField] Transform cardSpawnPoint;
+    [SerializeField] Transform otherCardSpawnPoint;
 
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);  // 빈 entity의 존재유무 조건 : 
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);    // 
@@ -44,14 +46,12 @@ public class EntityManager : MonoBehaviour
         TurnManager.OnTurnStarted -= OnTurnStarted; // 비활성화 => 여기서도 비활성화
     }
 
-
+    // 관련 함수
     void CountNumbering()   // 내 덱 카운트
     {
          myEntityTMP.text = this.myEntities.Count.ToString();
         otherEntityTMP.text = this.otherEntities.Count.ToString();
     }
-
-    // 관련 함수
 
     void OnTurnStarted(bool myTurn) // 상대 턴에 AI 실행
     {
@@ -64,15 +64,20 @@ public class EntityManager : MonoBehaviour
 
     IEnumerator AICo()  // 상대 AI 설정
     {
-        CardManager.Inst.TryPutCard(false); // 카드 냄
-        otherPutCard++;
-        yield return delay1;    // 1초 대기
-        
-        CardManager.Inst.TryPutCard(false); // 카드 냄
-        otherPutCard++;
-        yield return delay1;    // 1초 대기
+        if (CardManager.Inst.otherDeckCount.Count > 0)
+        {
+            CardManager.Inst.TryPutCard(false); // 카드 냄
+            otherPutCard++;
+            yield return delay1;    // 1초 대기
 
-        TurnManager.Inst.EndTurn(); // 턴 종료
+            CardManager.Inst.TryPutCard(false); // 카드 냄
+            otherPutCard++;
+            yield return delay1;    // 1초 대기
+
+            TurnManager.Inst.EndTurn(); // 턴 종료
+        }
+
+        yield return delay2;
     }
 
     void EntityAlignment(bool isMine)   // 엔티티 정렬
@@ -129,4 +134,20 @@ public class EntityManager : MonoBehaviour
 
         return true;
     }
+
+    // 카드 효과
+    /*
+    public void effectCard1(bool myTurn, Item item)
+    {
+        Vector3 spawnPos = myTurn ? cardSpawnPoint.position : otherCardSpawnPoint.position;
+        var entityObject = Instantiate(entityPrefab, spawnPos, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
+        var entity = entityObject.GetComponent<Entity>(); // card는 Card 스크립트 내용의 변수
+        entity.Setup(item);
+        SpawnEntity(myTurn, item, spawnPos);
+        (myTurn ? myEntities : otherEntities).Add(entity);  // 내꺼면 내 카드, 아니면 상대 카드 추가
+
+        EntityAlignment(myTurn);  // 카드들 위치 정렬
+
+    }
+    */
 }
