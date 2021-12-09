@@ -152,29 +152,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f7ea3dda164fb43a25a49aa674e201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eCardState: 0
   itemSO: {fileID: 11400000, guid: 3140c73cd30e7324b837bd4993f196a4, type: 2}
   cardPrefab: {fileID: 7168613235147681676, guid: 47939c7459e8c4f48a19c044ba6bd2f2, type: 3}
-  myCards: []
-  otherCards: []
-  cardSpawnPoint: {fileID: 1583434827}
-  otherCardSpawnPoint: {fileID: 335660966}
-  myCardLeft: {fileID: 582419503}
-  myCardRight: {fileID: 1589195480}
-  otherCardLeft: {fileID: 1711980578}
-  otherCardRight: {fileID: 1701831788}
-  eCardState: 0
-  myDeckTMP: {fileID: 2067084453}
-  otherDeckTMP: {fileID: 1517535806}
-  myEntitySpawnPoint: {fileID: 0}
-  otherEntitySpawnPoint: {fileID: 2018609167}
+  p1Hands: []
+  p2Hands: []
+  p1HandSpawnPoint: {fileID: 1583434827}
+  p2HandSpawnPoint: {fileID: 335660966}
+  p1HandLeft: {fileID: 582419503}
+  p1HandRight: {fileID: 1589195480}
+  p2HandLeft: {fileID: 1711980578}
+  p2HandRight: {fileID: 1701831788}
+  p1DeckTMP: {fileID: 2067084453}
+  p2DeckTMP: {fileID: 1517535806}
+  p1EntitySpawnPoint: {fileID: 446333605}
+  p2EntitySpawnPoint: {fileID: 2018609167}
   TurnCardTMP: {fileID: 1169698566}
-  MaxCardTMP: {fileID: 0}
-  myBackCard: {fileID: 737089337}
-  otherBackCard: {fileID: 2016450120}
-  myDeckCount: []
-  otherDeckCount: []
-  myPercent: 0101010100000000010101000000000100000000
-  otherPercent: 0101010100000000010101000000000100000000
+  MaxCardTMP: {fileID: 1059270925}
+  p1BackCard: {fileID: 737089337}
+  p2BackCard: {fileID: 2016450120}
+  p1DeckCount: []
+  p2DeckCount: []
+  p1Percent: 0101010101010101010101000000000000000000
+  p2Percent: 0101010101010101010101000000000000000000
 --- !u!4 &192698698
 Transform:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224041508}
   m_Layer: 0
-  m_Name: MyPlayer
+  m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,6 +357,7 @@ Transform:
   - {fileID: 2021504367}
   - {fileID: 737089339}
   - {fileID: 1583434827}
+  - {fileID: 446333605}
   - {fileID: 1307882406}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -401,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 335660966}
   m_Layer: 0
-  m_Name: OtherCardSpawnPoint
+  m_Name: P2HandSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,6 +421,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1643022092}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &446333604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446333605}
+  m_Layer: 0
+  m_Name: P1EntitySpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &446333605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446333604}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.0033133, y: -90.8, z: 281.80005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224041508}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &532561548
 GameObject:
@@ -558,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 582419503}
   m_Layer: 0
-  m_Name: MyCardLeft
+  m_Name: P1HandLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,7 +621,7 @@ GameObject:
   - component: {fileID: 585586463}
   - component: {fileID: 585586462}
   m_Layer: 0
-  m_Name: OtherEntityCount
+  m_Name: P2EntityCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,7 +951,7 @@ GameObject:
   - component: {fileID: 737089339}
   - component: {fileID: 737089338}
   m_Layer: 0
-  m_Name: MyBackCard
+  m_Name: P1BackCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,7 +1034,7 @@ GameObject:
   - component: {fileID: 756864905}
   - component: {fileID: 756864904}
   m_Layer: 0
-  m_Name: MyEntityCount
+  m_Name: P1EntityCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1025,7 +1056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23.40952, y: -60.55769}
+  m_AnchoredPosition: {x: -23.409359, y: -60.55754}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756864904
@@ -1671,15 +1702,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityPrefab: {fileID: 5012659454498966194, guid: 3d982f3162fc3f44ba3dff1a1fcb3f62, type: 3}
-  myEntities: []
-  otherEntities: []
+  p1Entities: []
+  p2Entities: []
   showEntity: {fileID: 532561549}
-  myEmptyEntity: {fileID: 1307882407}
-  myEntityTMP: {fileID: 756864904}
-  otherEntityTMP: {fileID: 585586462}
-  cardSpawnPoint: {fileID: 0}
-  otherCardSpawnPoint: {fileID: 0}
-  otherPutCard: 0
+  p1EmptyEntity: {fileID: 0}
+  p1EntityTMP: {fileID: 0}
+  p2EntityTMP: {fileID: 0}
+  p1HandSpawnPoint: {fileID: 0}
+  p2HandSpawnPoint: {fileID: 0}
+  p2PutCard: 0
 --- !u!4 &1199383249
 Transform:
   m_ObjectHideFlags: 0
@@ -1919,7 +1950,7 @@ GameObject:
   - component: {fileID: 1307882406}
   - component: {fileID: 1307882407}
   m_Layer: 0
-  m_Name: MyEmptyEntity
+  m_Name: P1EmptyEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1937,7 +1968,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224041508}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1307882407
 MonoBehaviour:
@@ -2272,7 +2303,7 @@ GameObject:
   - component: {fileID: 1517535807}
   - component: {fileID: 1517535806}
   m_Layer: 0
-  m_Name: OtherDeckCount
+  m_Name: P2DeckCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2572,7 +2603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583434827}
   m_Layer: 0
-  m_Name: MyCardSpawnPoint
+  m_Name: P1HandSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2602,7 +2633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589195480}
   m_Layer: 0
-  m_Name: MyCardRight
+  m_Name: P1HandRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2869,7 +2900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1643022092}
   m_Layer: 0
-  m_Name: OtherPlayer
+  m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2988,7 +3019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1701831788}
   m_Layer: 0
-  m_Name: OtherCardRight
+  m_Name: P2PandRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3018,7 +3049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1711980578}
   m_Layer: 0
-  m_Name: OtherCardLeft
+  m_Name: P2HandLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3071,7 +3102,7 @@ MonoBehaviour:
   fastMode: 1
   startCardCount: 2
   isLoading: 0
-  myTurn: 0
+  p1Turn: 0
 --- !u!4 &1894338974
 Transform:
   m_ObjectHideFlags: 0
@@ -3310,7 +3341,7 @@ GameObject:
   - component: {fileID: 2016450121}
   - component: {fileID: 2016450122}
   m_Layer: 0
-  m_Name: OtherBackCard
+  m_Name: P2BackCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3391,7 +3422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018609167}
   m_Layer: 0
-  m_Name: OtherEntitySpawnPoint
+  m_Name: P2EntitySpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3422,7 +3453,7 @@ GameObject:
   - component: {fileID: 2021504367}
   - component: {fileID: 2021504368}
   m_Layer: 6
-  m_Name: MyCardArea
+  m_Name: P1HandArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3570,7 +3601,7 @@ GameObject:
   - component: {fileID: 2067084454}
   - component: {fileID: 2067084453}
   m_Layer: 0
-  m_Name: MyDeckCount
+  m_Name: P1DeckCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

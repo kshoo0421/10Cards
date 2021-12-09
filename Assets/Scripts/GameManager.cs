@@ -34,16 +34,16 @@ public class GameManager : MonoBehaviour
     void InputCheatKey()    // 치트키 목록
     {
         if (Input.GetKeyDown(KeyCode.Keypad1))  // 1번 누르면
-            TurnManager.OnAddCard?.Invoke(true);  // 내 카드 추가
+            TurnManager.OnAddCard?.Invoke(true);  // p1 카드 추가
 
         if (Input.GetKeyDown(KeyCode.Keypad2))  // 2번 누르면
-            TurnManager.OnAddCard?.Invoke(false); // 상대 카드 추가
+            TurnManager.OnAddCard?.Invoke(false); // p2 카드 추가
 
         if (Input.GetKeyDown(KeyCode.Keypad3))  // 3번 누르면
             TurnManager.Inst.EndTurn(); // 턴 종료
 
         if (Input.GetKeyDown(KeyCode.Keypad4))  // 4번 누르면
-            CardManager.Inst.TryPutCard(false); // 상대가 카드를 냄
+            CardManager.Inst.TryPutCard(false); // p2 카드를 냄
     }
 
     public void StartGame() // 게임 시작 함수 호출
@@ -64,14 +64,14 @@ public class GameManager : MonoBehaviour
         cameraEffect.SetGrayScale(false);
     }
 
-    public IEnumerator GameOver(bool isMyWin)
+    public IEnumerator GameOver(bool isP1Win)
     {
         TurnManager.Inst.isLoading = true;
         endTurnBtn.SetActive(false);
         yield return delay1;
 
         TurnManager.Inst.isLoading = true;
-        resultPanel.Show(isMyWin ? "승리" : "패배");
+        resultPanel.Show(isP1Win ? "승리" : "패배");
         cameraEffect.SetGrayScale(true);
         
     }

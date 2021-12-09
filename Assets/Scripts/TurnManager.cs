@@ -15,8 +15,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField] [Tooltip("시작 카드 개수를 정합니다")] int startCardCount;    // 시작 패 장수 결정
     [Header("Properties")]
     public bool isLoading; // 게임 끝나면 isLoading을 true로 하면 카드와 엔티티 클릭 방지
-    public bool myTurn; // 내 턴 / 상대 턴 결정
-    enum ETurnMode { Random, My, Other }    // enum은 연관된 상수들의 집합. 랜덤, 내 턴, 상대 턴 중 결정
+    public bool p1Turn; // 내 턴 / 상대 턴 결정
+    enum ETurnMode { Random, P1, P2 }    // enum은 연관된 상수들의 집합. 랜덤, 내 턴, 상대 턴 중 결정
     WaitForSeconds delay05 = new WaitForSeconds(0.5f);  // delay05면 진행 시간 0.5초
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);  // delay07이면 진행 시간 0.7초
     public static Action<bool> OnAddCard;   // OnAddCard 함수 설정, 외부 연결
@@ -32,13 +32,13 @@ public class TurnManager : MonoBehaviour
         switch (eTurnMode)  // 선공 결정
         {
             case ETurnMode.Random:  // case1. random이면
-                myTurn = Random.Range(0, 2) == 0;   // 둘 중에 하나; a == 0 이 참이면 내 턴, 아니면 상대 턴
+                p1Turn = Random.Range(0, 2) == 0;   // 둘 중에 하나; a == 0 이 참이면 내 턴, 아니면 상대 턴
                 break;
-            case ETurnMode.My:  // 내 턴이면
-                myTurn = true;  // 내 턴 = true
+            case ETurnMode.P1:  // 내 턴이면
+                p1Turn = true;  // 내 턴 = true
                 break;
-            case ETurnMode.Other:   // 상대 턴이면
-                myTurn = false; // 내 턴 = false
+            case ETurnMode.P2:   // 상대 턴이면
+                p1Turn = false; // 내 턴 = false
                 break;
         }
     }
@@ -61,20 +61,20 @@ public class TurnManager : MonoBehaviour
     IEnumerator StartTurnCo()   // 턴 시작 함수
     {
         isLoading = true;   // 로딩 중 표시(기타 행동 방지)
-        if (myTurn) // 내 턴이면
+        if (p1Turn) // 내 턴이면
             GameManager.Inst.Notification("나의 턴");  // 나의 턴 표시
       
         yield return delay07;   // 속도 : delay07
-        OnAddCard?.Invoke(myTurn);  // OnAddCard = true
+        OnAddCard?.Invoke(p1Turn);  // OnAddCard = true
         yield return delay07;   // 속도 : delay07
         isLoading = false;  // 로딩 끝 = 입력 가능
         
-        OnTurnStarted?.Invoke(myTurn);  // OnTurnStarted = true; 내 턴 시작
+        OnTurnStarted?.Invoke(p1Turn);  // OnTurnStarted = true; 내 턴 시작
     }
 
     public void EndTurn()   // 턴 종료
     {
-        myTurn = !myTurn;   // 내 턴에서 상대 턴으로 전환
+        p1Turn = !p1Turn;   // 내 턴에서 상대 턴으로 전환
         StartCoroutine(StartTurnCo());  // (상대) 턴 시작
     }
 }

@@ -39,7 +39,6 @@ public class Card : MonoBehaviour
         }
     }
 
-    
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)  // 카드 뽑기
     {
         if (useDotween) // DOTween 사용하면
@@ -61,13 +60,13 @@ public class Card : MonoBehaviour
         if (isFront)
             CardManager.Inst.CardMouseOver(this);
     }
+    
     void OnMouseExit()
     {
         if (isFront)
             CardManager.Inst.CardMouseExit(this);
     }
 
-    
     void OnMouseDown()
     {
         if (isFront)
