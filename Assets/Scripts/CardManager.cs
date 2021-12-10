@@ -191,7 +191,7 @@ public class CardManager : MonoBehaviour
         }
 
         p2DeckCount = new List<Item>(20);
-        for (int i = 0; i < itemSO.items.Length; i++) // 아이템의 총 갯수(100)만큼 반복
+        for (int i = 0; i < itemSO.items.Length; i++) // 아이템의 총 갯수(20)만큼 반복
         {
             Item item = itemSO.items[i];    // item = 아이템리스트의 i번째 아이템
             bool per = p2Percent[i];
@@ -288,11 +288,8 @@ public class CardManager : MonoBehaviour
             case 1: // 뒤통수 : 상대 덱 1장을 버립니다.
                 Debug.Log(player + "뒤통수 발동");
                 StartCoroutine(Delay3());
-                var cardObject01 = Instantiate(cardPrefab, !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
-                var card01 = cardObject01.GetComponent<Card>(); // card는 Card 스크립트 내용의 변수
-                card01.Setup(PopItem(!p1Turn), !p1Turn);  // 나 or 상대 카드 뽑기
                 Vector3 spawnPoint01 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                EntityManager.Inst.SpawnEntity(!p1Turn, card01.item, spawnPoint01);    // 카드 발동; 턴, 아이템 내용, 스폰 위치 입력이 되면
+                EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint01);    // 카드 발동; 턴, 아이템 내용, 스폰 위치 입력이 되면
                 break;
                 
             case 2: // 도벽 : 상대 덱 1장을 가져옵니다.
@@ -311,7 +308,13 @@ public class CardManager : MonoBehaviour
 
             case 3: // 도박 : 상대 덱 2장을 상대가 사용합니다. 
                 Debug.Log(player + "도박 발동");
+                Vector3 spawnPoint031 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                if (EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint031))
+                    CardEffect(PopItem(!p1Turn).effectNumber, !p1Turn, PopItem(!p1Turn));
 
+                Vector3 spawnPoint032 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                if (EntityManager.Inst.SpawnEntity(p1Turn, PopItem(!p1Turn), spawnPoint032))
+                    CardEffect(PopItem(!p1Turn).effectNumber, p1Turn, PopItem(!p1Turn));
                 break;
                 
             case 4: // 위협 : 무작위로 상대 패 1장을 버립니다.
@@ -343,7 +346,7 @@ public class CardManager : MonoBehaviour
                 if ((p1Turn ? p2Hands : p1Hands).Count <= 0)   // 상대 패가 없으면
                     return;   // 반환
 
-                Card card05 = p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];    // 내 카드면 선택한 카드, 상대 카드면 카드 중 아무거나
+                Card card05 = p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];
                 Vector3 spawnPoint05 = p1Turn ? p2EntitySpawnPoint.position : p1EntitySpawnPoint.position;
                 var targetCards05 = p1Turn ? p2Hands : p1Hands; 
 
@@ -362,6 +365,18 @@ public class CardManager : MonoBehaviour
                 Debug.Log(player + "제비뽑기 발동");
                 StartCoroutine(Delay3());
 
+                Card card06 = p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];
+                Vector3 spawnPoint06 = p1Turn ? p2EntitySpawnPoint.position : p1EntitySpawnPoint.position;
+
+                card06.Setup(card06.item, p1Turn);  // 나 or 상대 카드 뽑기
+                (p1Turn ? p1Hands : p2Hands).Add(card06);  // 내꺼면 내 패, 아니면 상대 패 추가
+                (!p1Turn ? p1Hands : p2Hands).Remove(card06);  // 내꺼면 상대 패, 아니면 내 패 제거
+
+                SetOriginOrder(p1Turn); // 카드 레이어 순서 정렬
+                SetOriginOrder(!p1Turn); // 카드 레이어 순서 정렬
+                CardAlignment(p1Turn);  // 카드들 위치 정렬
+                CardAlignment(!p1Turn);  // 카드들 위치 정렬
+
                 break;
 
             case 7: // 수갑 : 상대는 다음 턴에 1장만 사용할 수 있습니다.
@@ -375,8 +390,27 @@ public class CardManager : MonoBehaviour
 
             case 8: // 감사합니다. : 상대 수거함에서 무작위로 카드 1장을 가져옵니다.
                 Debug.Log(player + "감사합니다. 발동");
+                // 수정 필요
                 StartCoroutine(Delay3());
 
+                EntityManager entityManager = gameObject.AddComponent<EntityManager>();
+
+                if ((p1Turn ? entityManager.p2Entities.Count : entityManager.p1Entities.Count) == 0)
+                    return;
+
+                Entity card081 = p1Turn ? entityManager.p2Entities[Random.Range(0, entityManager.p2Entities.Count-1)] 
+                    : entityManager.p1Entities[Random.Range(0, entityManager.p1Entities.Count-1)];
+
+                Vector3 EntityPoint08 = new Vector3((p1Turn ? 21.7f : -21.4f), (p1Turn ? 36.7f : -37.2f), 0);
+                var cardObject = Instantiate(cardPrefab, EntityPoint08, Utils.QI);
+                Card card082 = cardObject.GetComponent<Card>(); ;
+                card082.Setup(card081.item, p1Turn);  // 나 or 상대 카드 뽑기
+                
+                (p1Turn ? p1Hands : p2Hands).Add(card082);  // 내꺼면 내 패, 아니면 상대 패 추가
+                (p1Turn ? entityManager.p2Entities : entityManager.p1Entities).Remove(card081);  // 내꺼면 상대 패, 아니면 내 패 제거
+
+                SetOriginOrder(p1Turn); // 카드 레이어 순서 정렬
+                CardAlignment(p1Turn);  // 카드들 위치 정렬
                 break;
 
             case 9: // 달리기 : 내 덱 2장을 뽑습니다.
@@ -388,24 +422,53 @@ public class CardManager : MonoBehaviour
 
             case 10: // 밑장 빼기 : 내 덱 1장을 사용합니다. 
                 Debug.Log(player + "밑장 빼기 발동");
-               
+                Vector3 spawnPoint10 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                if(EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint10))
+                    CardEffect(PopItem(p1Turn).effectNumber, p1Turn, PopItem(p1Turn));
                 break; 
             
             case 11: // 대출 : 내 덱 2장을 사용합니다.
                 Debug.Log(player + "대출 발동");
-               
+                Vector3 spawnPoint111 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                if (EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint111))
+                    CardEffect(PopItem(p1Turn).effectNumber, p1Turn, PopItem(p1Turn));
+
+                Vector3 spawnPoint112 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                if (EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint112))
+                    CardEffect(PopItem(p1Turn).effectNumber, p1Turn, PopItem(p1Turn));
                 break;
 
             case 12: // 재활용품 : 내 덱에 이 카드를 넣습니다.
                 Debug.Log(player + "재활용품 발동");
                 StartCoroutine(Delay3());
-
                 break;
 
             case 13: // 올인 : 내 패를 모두 버리고, 그만큼 상대 덱을 버립니다.
                 Debug.Log(player + "올인 발동");
                 StartCoroutine(Delay3());
 
+                int HandsCount13 = p1Turn ? p1Hands.Count : p2Hands.Count;
+                Vector3 spawnPoint131 = p1Turn ? p1EntitySpawnPoint.position : p2EntitySpawnPoint.position;
+                var targetCards13 = p1Turn ? p1Hands : p2Hands;    // 타겟 카드는 내 차례면 상대 패, 아니면 내 패
+
+                for (int i = 0; i < HandsCount13; i++)
+                {
+                    Card card13 = p1Turn ? p1Hands[HandsCount13 - i - 1] : p2Hands[HandsCount13 - i - 1];
+
+                    if (EntityManager.Inst.SpawnEntity(p1Turn, card13.item, spawnPoint131))    // 카드 버림; 턴, 아이템 내용, 스폰 위치 입력이 되면
+                    {
+                       targetCards13.Remove(card13);   // 패에서 카드 삭제
+                        card13.transform.DOKill();    // 없애버림
+                        DestroyImmediate(card13.gameObject);
+                        card13 = null;
+                        CardAlignment(p1Turn);
+                    }
+                }
+                for (int i = 0; i < HandsCount13; i++)
+                {
+                    Vector3 spawnPoint132 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                    EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint132);    // 카드 발동; 턴, 아이템 내용, 스폰 위치 입력이 되면
+                }
                 break;
 
             case 14: // 분리수거 : 내 수거함에서 무작위로 카드 1장을 가져옵니다.
@@ -414,10 +477,13 @@ public class CardManager : MonoBehaviour
 
                 break;
 
-            case 15: // 거울치료 : 지난 턴에 상대가 사용했던 카드들을 사용합니다.
+            case 15: // 거울치료 : 상대가 마지막으로 사용했던 카드를 사용합니다.
                 Debug.Log(player + "거울치료 발동");
                 StartCoroutine(Delay3());
-
+                EntityManager entitymanager = gameObject.AddComponent<EntityManager>();
+                Entity entity15 = p1Turn ? entitymanager.p2Entities[entitymanager.p2Entities.Count - 1] :
+                    entitymanager.p1Entities[entitymanager.p1Entities.Count - 1];
+                CardEffect(entity15.item.effectNumber, p1Turn, entity15.item);
                 break;
 
             case 16: // 상부상조 : 서로 덱 1장을 뽑습니다.
@@ -428,48 +494,85 @@ public class CardManager : MonoBehaviour
                 break;
 
             case 17: // 형님 먼저 : 서로 덱 1장을 버립니다.
-                // 오류 발생 : P2가 사용 시 사용 안하는 카드 1개 생성, P1은 생성은 되나 마우스 올리면 제거
                 Debug.Log(player + "형님 먼저 발동");
                 StartCoroutine(Delay3());
-
                 // 상대 덱 버리기
-                var cardObject171 = Instantiate(cardPrefab, !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
-                var card171 = cardObject171.GetComponent<Card>(); // card는 Card 스크립트 내용의 변수
-                card171.Setup(PopItem(!p1Turn), !p1Turn);  // 나 or 상대 카드 뽑기
                 Vector3 spawnPoint171 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                EntityManager.Inst.SpawnEntity(!p1Turn, card171.item, spawnPoint171);
-
-                var cardObject172 = Instantiate(cardPrefab, p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
-                var card172 = cardObject171.GetComponent<Card>(); // card는 Card 스크립트 내용의 변수
-                card172.Setup(PopItem(p1Turn), p1Turn);  // 나 or 상대 카드 뽑기
-                Vector3 spawnPoint172 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                EntityManager.Inst.SpawnEntity(p1Turn, card172.item, spawnPoint172);
-
-                /*
-                 * 
-                var cardObject171 = Instantiate(cardPrefab, !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
-                var card171 = cardObject171.GetComponent<Card>(); // card는 Card 스크립트 내용의 변수
-                card171.Setup(PopItem(!p1Turn), !p1Turn);  // 덱 리스트 제거
-                Vector3 spawnPoint171 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                EntityManager.Inst.SpawnEntity(!p1Turn, card171.item, spawnPoint171);    // 카드 발동; 턴, 아이템 내용, 스폰 위치 입력이 되면
-
+                EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint171);
                 // 내 덱 버리기
-                var cardObject172 = Instantiate(cardPrefab, p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position, Utils.QI); // cardObject변수는 (카드 세트, 카드 리스폰 위치, 각도)의 정보를 가짐 
-                var card172 = cardObject172.GetComponent<Card>(); // card는 Card 스크립트 내용의 변수
-                card172.Setup(PopItem(p1Turn), p1Turn);  // 덱 리스트 제거
                 Vector3 spawnPoint172 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                EntityManager.Inst.SpawnEntity(p1Turn, card172.item, spawnPoint172);    // 카드 발동; 턴, 아이템 내용, 스폰 위치 입력
-                */
+                EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint172);
+                
                 break;
 
             case 18: // 교환 : 서로의 패에서 무작위로 1장을 가져옵니다.
                 Debug.Log(player + "교환 발동");
                 StartCoroutine(Delay3());
+                if ((p1Turn ? p2Hands.Count : p1Hands.Count) >= 1)
+                {
+                    Card card181 = p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];
+                    Vector3 spawnPoint181 = p1Turn ? p2EntitySpawnPoint.position : p1EntitySpawnPoint.position;
+
+                    card181.Setup(card181.item, p1Turn);  // 나 or 상대 카드 뽑기
+                    (p1Turn ? p1Hands : p2Hands).Add(card181);  // 내꺼면 내 패, 아니면 상대 패 추가
+                    (!p1Turn ? p1Hands : p2Hands).Remove(card181);  // 내꺼면 상대 패, 아니면 내 패 제거
+                }
+                if ((p1Turn ? p1Hands.Count : p2Hands.Count) >= 1)
+                {
+                    Card card182 = !p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];
+                    Vector3 spawnPoint182 = !p1Turn ? p2EntitySpawnPoint.position : p1EntitySpawnPoint.position;
+
+                    card182.Setup(card182.item, !p1Turn);  // 나 or 상대 카드 뽑기
+                    (!p1Turn ? p1Hands : p2Hands).Add(card182);  // 내꺼면 내 패, 아니면 상대 패 추가
+                    (p1Turn ? p1Hands : p2Hands).Remove(card182);  // 내꺼면 상대 패, 아니면 내 패 제거
+                }
+                SetOriginOrder(p1Turn); // 카드 레이어 순서 정렬
+                SetOriginOrder(!p1Turn); // 카드 레이어 순서 정렬
+                CardAlignment(p1Turn);  // 카드들 위치 정렬
+                CardAlignment(!p1Turn);  // 카드들 위치 정렬
+
                 break;
 
             case 19: // 대청소 : 서로 패를 모두 버립니다. 
                 Debug.Log(player + "대청소 발동");
                 StartCoroutine(Delay3());
+
+                int HandsCount191 = p1Turn ? p1Hands.Count : p2Hands.Count;
+                Vector3 spawnPoint191 = p1Turn ? p1EntitySpawnPoint.position : p2EntitySpawnPoint.position;
+                var targetCards191 = p1Turn ? p1Hands : p2Hands;    // 타겟 카드는 내 차례면 상대 패, 아니면 내 패
+
+                for (int i = 0; i < HandsCount191; i++)
+                {
+                    Card card191 = p1Turn ? p1Hands[HandsCount191 - i - 1] : p2Hands[HandsCount191 - i - 1];
+
+                    if (EntityManager.Inst.SpawnEntity(p1Turn, card191.item, spawnPoint191))    // 카드 버림; 턴, 아이템 내용, 스폰 위치 입력이 되면
+                    {
+                        targetCards191.Remove(card191);   // 패에서 카드 삭제
+                        card191.transform.DOKill();    // 없애버림
+                        DestroyImmediate(card191.gameObject);
+                        card191 = null;
+                        CardAlignment(p1Turn);
+                    }
+                }
+
+                int HandsCount192 = !p1Turn ? p1Hands.Count : p2Hands.Count;
+                Vector3 spawnPoint192 = !p1Turn ? p1EntitySpawnPoint.position : p2EntitySpawnPoint.position;
+                var targetCards192 = !p1Turn ? p1Hands : p2Hands;    // 타겟 카드는 내 차례면 상대 패, 아니면 내 패
+
+                for (int i = 0; i < HandsCount192; i++)
+                {
+                    Card card192 = !p1Turn ? p1Hands[HandsCount192 - i - 1] : p2Hands[HandsCount192 - i - 1];
+
+                    if (EntityManager.Inst.SpawnEntity(!p1Turn, card192.item, spawnPoint192))    // 카드 버림; 턴, 아이템 내용, 스폰 위치 입력이 되면
+                    {
+                        targetCards192.Remove(card192);   // 패에서 카드 삭제
+                        card192.transform.DOKill();    // 없애버림
+                        DestroyImmediate(card192.gameObject);
+                        card192 = null;
+                        CardAlignment(!p1Turn);
+                    }
+                }
+
                 break;
 
             case 20: // 남의 떡 : 서로 무작위로 상대 패 1장을 사용합니다. 
@@ -488,7 +591,6 @@ public class CardManager : MonoBehaviour
                         DestroyImmediate(card201.gameObject);
                         CardEffect(card201.item.effectNumber, p1Turn, card201.item);
                         CardAlignment(!p1Turn);
-                        return;
                     }
                 }
                 if ((!p1Turn ? p2Hands : p1Hands).Count <= 0)

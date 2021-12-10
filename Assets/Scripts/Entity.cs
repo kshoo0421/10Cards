@@ -6,7 +6,7 @@ using DG.Tweening;  // 두트윈 사용
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField] Item item; // 아이템
+    public Item item; // 아이템
     [SerializeField] SpriteRenderer entity; // 엔티티 그림
     [SerializeField] SpriteRenderer character;  // 캐릭터 그림
     [SerializeField] TMP_Text nameTMP;  // 이름 TMP
@@ -14,7 +14,6 @@ public class Entity : MonoBehaviour
     
     public string effect;
     public bool isMine; // 내 것인지
-    public bool isEmpty;  // 빈 entity(적용 안할 것들)
     public Vector3 originPos;  // 정렬용 originPos
 
     // 관련 함수

@@ -9,8 +9,8 @@ public class EntityManager : MonoBehaviour
     public static EntityManager Inst { get; private set; }
     private void Awake() => Inst = this;
     [SerializeField] GameObject entityPrefab;   // 엔티티 Prefab 연결
-    [SerializeField] List<Entity> p1Entities;   // 내 엔티티 목록
-    [SerializeField] List<Entity> p2Entities;    // 상대 엔티티 목록
+    public List<Entity> p1Entities;   // 내 엔티티 목록
+    public List<Entity> p2Entities;    // 상대 엔티티 목록
     [SerializeField] Transform showEntity;  // 보여주기 위치
     [SerializeField] TMP_Text p1EntityTMP;  // 내 묘지 TMP
     [SerializeField] TMP_Text p2EntityTMP;  // 상대 묘지 TMP
@@ -21,6 +21,7 @@ public class EntityManager : MonoBehaviour
     Entity targetPickEntity;
     WaitForSeconds delay1 = new WaitForSeconds(1);  // delay1은 1초 대기
     WaitForSeconds delay2 = new WaitForSeconds(2);  // delay2는 2초 대기
+
 
     // 게임 진행
     void Start()
@@ -69,7 +70,6 @@ public class EntityManager : MonoBehaviour
         }
         yield return delay2;
     }
-
    
     public bool SpawnEntity(bool isMine, Item item, Vector3 spawnPos)
     {

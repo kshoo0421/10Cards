@@ -346,8 +346,8 @@ MonoBehaviour:
   maxCount: 0
   p1PutCount: 0
   p2PutCount: 0
-  p1Percent: 0101000101000100010000000000000101000001
-  p2Percent: 0101000101000100010000000000000101000001
+  p1Percent: 0101000100000100000000000100000000000100
+  p2Percent: 0101000100000100000000000100000000000100
   cardEffect07: 0
 --- !u!4 &192698698
 Transform:
@@ -1932,7 +1932,6 @@ MonoBehaviour:
   effectTMP: {fileID: 0}
   effect: 
   isMine: 0
-  isEmpty: 1
   originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1344419980
 GameObject:
