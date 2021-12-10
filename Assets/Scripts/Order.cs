@@ -20,7 +20,7 @@ public class Order : MonoBehaviour
         SetOrder(isMostFront ? 100 : originOrder);  // 참이면 가장 앞쪽에 배치, 아니면 기존대로 배치
     }
    
-    public void SetOrder(int order) // 외부에서 이름만 입력하면
+    public void SetOrder(int order) // 외부에서 숫자만 입력하면
     {
         int mulOrder = order * 10;  // 거기에 10을 곱하고(간격을 두고)
  

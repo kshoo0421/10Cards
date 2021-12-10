@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);  // delay07이면 진행 시간 0.7초
     public static Action<bool> OnAddCard;   // OnAddCard 함수 설정, 외부 연결
     public static event Action<bool> OnTurnStarted; // 턴 시작 함수 설정, 외부 연결
+    public int turnCount;
 
     // 관련 함수
 
@@ -41,6 +42,7 @@ public class TurnManager : MonoBehaviour
                 p1Turn = false; // 내 턴 = false
                 break;
         }
+        turnCount = 1;
     }
 
     public IEnumerator StartGameCo()    // 게임(Coroutine) 실행 함수
@@ -75,6 +77,12 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()   // 턴 종료
     {
         p1Turn = !p1Turn;   // 내 턴에서 상대 턴으로 전환
+        CardManager.Inst.p1PutCount = 0;
+        CardManager.Inst.p2PutCount = 0;
+        if(CardManager.Inst.cardEffect07 == true && CardManager.Inst.maxCount == 1 && turnCount >=2)
+            CardManager.Inst.cardEffect07 = false;
+        CardManager.Inst.maxCount = 2;
+        turnCount++;
         StartCoroutine(StartTurnCo());  // (상대) 턴 시작
     }
 }

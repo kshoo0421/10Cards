@@ -64,9 +64,9 @@
     <Compile Include="Assets\Scripts\TurnManager.cs" />
     <Compile Include="Assets\Scripts\UI\EndTurnButton.cs" />
     <Compile Include="Assets\Scripts\EntityManager.cs" />
+    <Compile Include="Assets\Scripts\CameraEffect.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationPanel.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
-    <Compile Include="Assets\Scripts\CameraEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\TextMesh Pro\Shaders\TMPro.cginc" />
