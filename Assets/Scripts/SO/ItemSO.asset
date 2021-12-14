@@ -15,12 +15,12 @@ MonoBehaviour:
   items:
   - name: "\uB4A4\uD1B5\uC218"
     effect: "\uC0C1\uB300 \uB371 1\uC7A5\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 3c7b2904a043375419b60e23cb6ce3d5, type: 3}
     percent: 1
     effectNumber: 1
   - name: "\uB3C4\uBCBD"
     effect: "\uC0C1\uB300 \uB371 1\uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 942d8332687a6ad4ab63a5aedf1feb91, type: 3}
     percent: 1
     effectNumber: 2
   - name: "\uB3C4\uBC15"
@@ -30,23 +30,23 @@ MonoBehaviour:
     effectNumber: 3
   - name: "\uC704\uD611"
     effect: "\uBB34\uC791\uC704\uB85C \uC0C1\uB300 \uD328 1\uC7A5\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 8cc140b2cd49769499cfc4e9ef22ffcf, type: 3}
     percent: 1
     effectNumber: 4
   - name: "\uD6C8\uC218"
     effect: "\uC0C1\uB300 \uD328 1\uC7A5\uC744 \uB0B4\uAC00 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 262d7a45d0c85534d85b66041298fd0a, type: 3}
     percent: 1
     effectNumber: 5
   - name: "\uC81C\uBE44\uBF51\uAE30"
     effect: "\uC0C1\uB300 \uD328 1\uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 9fa1415305407e641a8eab061bf88474, type: 3}
     percent: 1
     effectNumber: 6
   - name: "\uC218\uAC11"
     effect: "\uC0C1\uB300\uB294 \uB2E4\uC74C \uD134\uC5D0 1\uC7A5\uB9CC \uC0AC\uC6A9\uD560
       \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 0a23f442d9a7780429d0a20833225fd3, type: 3}
     percent: 1
     effectNumber: 7
   - name: "\uAC10\uC0AC\uD569\uB2C8\uB2E4."
@@ -57,17 +57,17 @@ MonoBehaviour:
     effectNumber: 8
   - name: "\uB2EC\uB9AC\uAE30"
     effect: "\uB0B4 \uB371\uC5D0\uC11C 2\uC7A5\uC744 \uBF51\uC2B5\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: e684e8efe05909b4ebe3c64777e21101, type: 3}
     percent: 1
     effectNumber: 9
   - name: "\uBC11\uC7A5 \uBE7C\uAE30"
     effect: "\uB0B4 \uB371 1\uC7A5\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: aa3cadf98a09dbd438f239f956b16e5d, type: 3}
     percent: 1
     effectNumber: 10
   - name: "\uB300\uCD9C"
     effect: "\uB0B4 \uB371 2\uC7A5\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: f6884ba16e948d247a0d2c52e0e9726a, type: 3}
     percent: 1
     effectNumber: 11
   - name: "\uC7AC\uD65C\uC6A9\uD488"
@@ -78,7 +78,7 @@ MonoBehaviour:
   - name: "\uC62C\uC778"
     effect: "\uB0B4 \uD328\uB97C \uBAA8\uB450 \uBC84\uB9AC\uACE0, \uADF8\uB9CC\uD07C
       \uC0C1\uB300 \uB371\uC744 \uBC84\uB9BD\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: 2a5599e62b799fd4894a7c95ff9a672c, type: 3}
     percent: 1
     effectNumber: 13
   - name: "\uBD84\uB9AC\uC218\uAC70"
@@ -95,7 +95,7 @@ MonoBehaviour:
     effectNumber: 15
   - name: "\uC0C1\uBD80\uC0C1\uC870"
     effect: "\uC11C\uB85C \uB371 1\uC7A5\uC744 \uBF51\uC2B5\uB2C8\uB2E4."
-    sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+    sprite: {fileID: 21300000, guid: a254d510f6e5e134e94a06f933d3f214, type: 3}
     percent: 1
     effectNumber: 16
   - name: "\uD615\uB2D8 \uBA3C\uC800"

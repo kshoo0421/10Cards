@@ -75,9 +75,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 794965353
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5066672056880227066, guid: c13ddb27d2c440a45934970193fb6e37, type: 3}
+  m_Sprite: {fileID: -1008745080886080724, guid: ff7317effb3cd624b94c2dfc430bdf61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,8 +104,8 @@ MonoBehaviour:
   character: {fileID: 7168613235829445046}
   nameTMP: {fileID: 7168613236110119235}
   effectTMP: {fileID: 7168613236164918043}
-  cardFront: {fileID: 5066672056880227066, guid: c13ddb27d2c440a45934970193fb6e37, type: 3}
-  cardBack: {fileID: 1254481342550709339, guid: c13ddb27d2c440a45934970193fb6e37, type: 3}
+  cardFront: {fileID: -1008745080886080724, guid: ff7317effb3cd624b94c2dfc430bdf61, type: 3}
+  cardBack: {fileID: -8566626792118560811, guid: ff7317effb3cd624b94c2dfc430bdf61, type: 3}
   noImage: {fileID: 0}
   item:
     name: 
@@ -194,8 +194,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7168613235829445044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.045, y: 0.56, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.005, y: 0.51, z: 0}
+  m_LocalScale: {x: 0.16, y: 0.13, z: 1}
   m_Children: []
   m_Father: {fileID: 7168613235147681678}
   m_RootOrder: 1
@@ -238,9 +238,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 794965353
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e2b0ff04d1e790b4bbb7688cbb94f746, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c7b2904a043375419b60e23cb6ce3d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

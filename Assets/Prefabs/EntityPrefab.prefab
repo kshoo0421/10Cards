@@ -245,9 +245,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1620942521
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5066672056880227066, guid: c13ddb27d2c440a45934970193fb6e37, type: 3}
+  m_Sprite: {fileID: -1008745080886080724, guid: ff7317effb3cd624b94c2dfc430bdf61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -282,7 +282,6 @@ MonoBehaviour:
   effectTMP: {fileID: 5012659453762590741}
   effect: 
   isMine: 0
-  isEmpty: 0
   originPos: {x: 0, y: 0, z: 0}
 --- !u!114 &5012659454498966196
 MonoBehaviour:
@@ -354,8 +353,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5012659455039903318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.045000076, y: 0.5599999, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.005, y: 0.51, z: 0}
+  m_LocalScale: {x: 0.16, y: 0.13, z: 1}
   m_Children: []
   m_Father: {fileID: 5012659454498966344}
   m_RootOrder: 1
@@ -398,7 +397,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1620942521
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

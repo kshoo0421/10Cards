@@ -21,29 +21,27 @@ public class EntityManager : MonoBehaviour
     Entity targetPickEntity;
     WaitForSeconds delay1 = new WaitForSeconds(1);  // delay1은 1초 대기
     WaitForSeconds delay2 = new WaitForSeconds(2);  // delay2는 2초 대기
-
+    WaitForSeconds delay3 = new WaitForSeconds(3);  // delay2는 2초 대기
+    WaitForSeconds delay5 = new WaitForSeconds(5);  // delay2는 2초 대기
 
     // 게임 진행
     void Start()
     {
         TurnManager.OnTurnStarted += OnTurnStarted; // OnTurnStarted 활성화 => 여기서도 활성화
     }
-
-    void Update()
-    {
-        EntityCountNumbering();
-    }
-
+    
     void OnDestroy()
     {
         TurnManager.OnTurnStarted -= OnTurnStarted; // 비활성화 => 여기서도 비활성화
     }
 
     // 관련 함수
-    void EntityCountNumbering()   // 내 덱 카운트
+    void EntityCountNumbering(bool p1Turn)   // 내 덱 카운트
     {
-        p1EntityTMP.text = this.p1Entities.Count.ToString();
-        p2EntityTMP.text = this.p2Entities.Count.ToString();
+        if(p1Turn == true)
+            p1EntityTMP.text = p1Entities.Count.ToString();
+        else
+            p2EntityTMP.text = p2Entities.Count.ToString();
     }
 
     void OnTurnStarted(bool p1Turn) // 상대 턴에 AI 실행
@@ -56,21 +54,25 @@ public class EntityManager : MonoBehaviour
 
     IEnumerator AICo()  // 상대 AI 설정
     {
+        yield return delay2;
         if (CardManager.Inst.p2DeckCount.Count > 0)
         {
             CardManager.Inst.TryPutCard(false); // 카드 냄
-            yield return delay1;    // 1초 대기
+            yield return delay5;    // 1초 대기
+        }
+        
+        if (CardManager.Inst.p2DeckCount.Count > 0 && CardManager.Inst.maxCount ==2 && CardManager.Inst.p2Hands.Count >0)
+        {
+            CardManager.Inst.TryPutCard(false); // 카드 냄
+            yield return delay5;    // 1초 대기
         }
 
         if (CardManager.Inst.p2DeckCount.Count > 0)
-        {
-            CardManager.Inst.TryPutCard(false); // 카드 냄
-            yield return delay1;    // 1초 대기
+        {   
             TurnManager.Inst.EndTurn(); // 턴 종료
         }
-        yield return delay2;
     }
-   
+
     public bool SpawnEntity(bool isMine, Item item, Vector3 spawnPos)
     {
         var entityObject = Instantiate(entityPrefab, spawnPos, Utils.QI);
@@ -89,6 +91,8 @@ public class EntityManager : MonoBehaviour
         entity.originPos = new Vector3(targetX, targetY, 0);
         entity.MoveTransform(entity.originPos, true, 0.5f);
         
+        EntityCountNumbering(isMine);
+
         return true;
     }
 }

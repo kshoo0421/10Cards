@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\UI\TitlePanel.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Order.cs" />
+    <Compile Include="Assets\Scripts\UI\Menu\GUIButton.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Compile Include="Assets\Scripts\SO\ItemSO.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
