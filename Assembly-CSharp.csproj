@@ -53,6 +53,8 @@
     <UnityVersion>2020.3.22f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\UI\DeckMaker.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuBackButton.cs" />
     <Compile Include="Assets\Scripts\CardManager.cs" />
     <Compile Include="Assets\Scripts\UI\ResultPanel.cs" />
     <Compile Include="Assets\Scripts\UI\TitlePanel.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Assets\Scripts\CameraEffect.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationPanel.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
+    <Compile Include="Assets\Scripts\CameraResolution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\TextMesh Pro\Shaders\TMPro.cginc" />

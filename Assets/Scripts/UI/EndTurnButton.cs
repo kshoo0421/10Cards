@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndTurnButton : MonoBehaviour
 {
     [SerializeField] Sprite active; // 실행 가능 버튼
     [SerializeField] Sprite inactive;   // 실행 불가능 버튼
     [SerializeField] Text btnText;
-
+    
     private void Start()    // 시작하면
     {
         Setup(false);   // false로 셋팅

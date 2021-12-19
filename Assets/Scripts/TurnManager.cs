@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;   // Action 사용 시 필요
 using UnityEngine;
 using Random = UnityEngine.Random;  // System과 UnityEngine의 Random이 겹쳐서 UnityEngine의 Random을 사용하겠다는 의미
+using TMPro;
 
 public class TurnManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class TurnManager : MonoBehaviour
     public static Action<bool> OnAddCard;   // OnAddCard 함수 설정, 외부 연결
     public static event Action<bool> OnTurnStarted; // 턴 시작 함수 설정, 외부 연결
     public int turnCount;
+    [SerializeField] TMP_Text leftButtonTMP;
 
     // 관련 함수
 
@@ -64,8 +66,13 @@ public class TurnManager : MonoBehaviour
     {
         isLoading = true;   // 로딩 중 표시(기타 행동 방지)
         if (p1Turn) // 내 턴이면
+        {
             GameManager.Inst.Notification("나의 턴");  // 나의 턴 표시
-      
+            leftButtonTMP.text = "나의 턴";
+        }
+        else
+            leftButtonTMP.text = "상대 턴";
+
         yield return delay07;   // 속도 : delay07
         OnAddCard?.Invoke(p1Turn);  // OnAddCard = true
         yield return delay07;   // 속도 : delay07

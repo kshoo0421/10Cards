@@ -32,7 +32,9 @@ public class CardManager : MonoBehaviour
     WaitForSeconds delay1 = new WaitForSeconds(1);  // delay1은 1초 대기
     WaitForSeconds delay2 = new WaitForSeconds(2);  // delay2는 2초 대기
     WaitForSeconds delay3 = new WaitForSeconds(3);  // delay2는 2초 대기
-
+    WaitForSeconds delay6 = new WaitForSeconds(6);  // delay2는 2초 대기
+    WaitForSeconds delay9 = new WaitForSeconds(9);  // delay2는 2초 대기
+   
     public List<Card> p1Hands;
     public List<Card> p2Hands;
     public List<Item> p1DeckCount;  // 아이템 버퍼 리스트 선언
@@ -157,9 +159,9 @@ public class CardManager : MonoBehaviour
     {
         if (isMine == true)
         {
-            Item item = p1DeckCount[0];  // 아이템이 첫 번째순서면
-            p1DeckCount.RemoveAt(0); // 아이템 버퍼에서 첫 번째 카드 제거
-            return item;    // 함수 종료
+            Item item = p1DeckCount[0];
+            p1DeckCount.RemoveAt(0);
+            return item;
         }
         else
         {
@@ -279,11 +281,9 @@ public class CardManager : MonoBehaviour
         var effectCard = effectObject.GetComponent<Card>();
 
         effectCard.Setup(item, true);
-        
+        // int entitiesCount = (p1Turn ? EntityManager.Inst.p1Entities : EntityManager.Inst.p2Entities).Count;
         effectCard.GetComponent<Order>().SetOrder(100);
-        
-        Entity entity = gameObject.AddComponent<Entity>();
-        entity.MoveTransform(effectPos, false, 0.5f);
+        effectCard.MoveTransform(new PRS(effectPos, Utils.QI, Vector3.one * 17.5f), false);
 
         yield return delay1;
         switch (effectNumber)
@@ -308,13 +308,31 @@ public class CardManager : MonoBehaviour
 
             case 3: // 도박 : 상대 덱 2장을 상대가 사용합니다. 
                 Debug.Log(player + "도박 발동");
+
+                effectCard.transform.DOKill();    // 없애버림
+                DestroyImmediate(effectCard.gameObject);
+
                 Vector3 spawnPoint031 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                if (EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint031))
-                    StartCoroutine(CardEffect(PopItem(!p1Turn).effectNumber, !p1Turn, PopItem(!p1Turn)));
+                Item card031 = PopItem(!p1Turn);
+                if (EntityManager.Inst.SpawnEntity(!p1Turn, card031, spawnPoint031))
+                    StartCoroutine(CardEffect(card031.effectNumber, !p1Turn, card031));
+                if (card031.effectNumber == 3 || card031.effectNumber == 11)
+                    yield return delay9;
+                else if (card031.effectNumber == 5 || card031.effectNumber == 10 || card031.effectNumber == 20)
+                    yield return delay6;
+                else yield return delay3;
 
                 Vector3 spawnPoint032 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                if (EntityManager.Inst.SpawnEntity(p1Turn, PopItem(!p1Turn), spawnPoint032))
-                    StartCoroutine(CardEffect(PopItem(!p1Turn).effectNumber, p1Turn, PopItem(!p1Turn)));
+                Item card032 = PopItem(!p1Turn);
+                if (EntityManager.Inst.SpawnEntity(!p1Turn, card032, spawnPoint032))
+                    StartCoroutine(CardEffect(card032.effectNumber, !p1Turn, card032));
+                if (card032.effectNumber == 3 || card032.effectNumber == 11)
+                    yield return delay9;
+                else if (card032.effectNumber == 5 || card032.effectNumber == 10 || card032.effectNumber == 20)
+                    yield return delay6;
+                else yield return delay3;
+
+
                 break;
                 
             case 4: // 위협 : 무작위로 상대 패 1장을 버립니다.
@@ -340,6 +358,8 @@ public class CardManager : MonoBehaviour
                 Debug.Log(player + "훈수 발동");
                 if ((p1Turn ? p2Hands : p1Hands).Count <= 0)
                     break;   // 반환
+                effectCard.transform.DOKill();    // 없애버림
+                DestroyImmediate(effectCard.gameObject);
 
                 Card card05 = p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];
                 Vector3 spawnPoint05 = p1Turn ? p2EntitySpawnPoint.position : p1EntitySpawnPoint.position;
@@ -351,6 +371,11 @@ public class CardManager : MonoBehaviour
                     card05.transform.DOKill();
                     DestroyImmediate(card05.gameObject);
                     StartCoroutine(CardEffect(card05.item.effectNumber, p1Turn, card05.item));
+                    if (card05.item.effectNumber == 3 || card05.item.effectNumber == 11)
+                        yield return delay9;
+                    else if (card05.item.effectNumber == 5 || card05.item.effectNumber == 10 || card05.item.effectNumber == 20)
+                        yield return delay6;
+                    else yield return delay3;
                     CardAlignment(!p1Turn);
                 }
                 break;
@@ -379,27 +404,12 @@ public class CardManager : MonoBehaviour
                     cardEffect07 = true;
                 break;
 
-            case 8: // 감사합니다. : 상대 수거함에서 무작위로 카드 1장을 가져옵니다.
-                Debug.Log(player + "감사합니다. 발동");
-                // 수정 필요
-                
-                EntityManager entityManager08 = gameObject.AddComponent<EntityManager>();
-                if ((p1Turn ? entityManager08.p2Entities.Count : entityManager08.p1Entities.Count) == 0)
-                    break;
-
-                Entity entity08 = p1Turn ? entityManager08.p2Entities[Random.Range(0, entityManager08.p2Entities.Count)] 
-                    : entityManager08.p1Entities[Random.Range(0, entityManager08.p1Entities.Count)];
-
-                Vector3 EntityPoint08 = new Vector3((p1Turn ? 21.7f : -21.4f), (p1Turn ? 36.7f : -37.2f), 0);
-                var cardObject08 = Instantiate(cardPrefab, EntityPoint08, Utils.QI);
-                Card card08 = cardObject08.GetComponent<Card>(); ;
-                card08.Setup(entity08.item, p1Turn);
-                
-                (p1Turn ? p1Hands : p2Hands).Add(card08);
-                (p1Turn ? entityManager08.p2Entities : entityManager08.p1Entities).Remove(entity08);
-
-                SetOriginOrder(p1Turn);
-                CardAlignment(p1Turn);
+            case 8: // 경쟁 : 서로 패를 2장 뽑습니다. 
+                Debug.Log(player + "경쟁 발동");
+                AddCard(false);
+                AddCard(false);
+                AddCard(true);
+                AddCard(true);
                 break;
 
             case 9: // 달리기 : 내 덱 2장을 뽑습니다.
@@ -410,24 +420,69 @@ public class CardManager : MonoBehaviour
 
             case 10: // 밑장 빼기 : 내 덱 1장을 사용합니다. 
                 Debug.Log(player + "밑장 빼기 발동");
+                effectCard.transform.DOKill();    // 없애버림
+                DestroyImmediate(effectCard.gameObject);
+
                 Vector3 spawnPoint10 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                if(EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint10))
-                    StartCoroutine(CardEffect(PopItem(p1Turn).effectNumber, p1Turn, PopItem(p1Turn)));
+                Item card10 = PopItem(p1Turn);
+                if(EntityManager.Inst.SpawnEntity(p1Turn, card10, spawnPoint10))
+                    StartCoroutine(CardEffect(card10.effectNumber, p1Turn, card10));
+                if (card10.effectNumber == 3 || card10.effectNumber == 11)
+                    yield return delay9;
+                else if (card10.effectNumber == 5 || card10.effectNumber == 10 || card10.effectNumber == 20)
+                    yield return delay6;
+                else yield return delay3;
+
                 break; 
             
             case 11: // 대출 : 내 덱 2장을 사용합니다.
                 Debug.Log(player + "대출 발동");
+                effectCard.transform.DOKill();    // 없애버림
+                DestroyImmediate(effectCard.gameObject);
+
                 Vector3 spawnPoint111 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                if (EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint111))
-                    StartCoroutine(CardEffect(PopItem(p1Turn).effectNumber, p1Turn, PopItem(p1Turn)));
+                Item card111 = PopItem(p1Turn);
+                if (EntityManager.Inst.SpawnEntity(p1Turn, card111, spawnPoint111))
+                    StartCoroutine(CardEffect(card111.effectNumber, p1Turn, card111));
+                if (card111.effectNumber == 3 || card111.effectNumber == 11)
+                    yield return delay9;
+                else if (card111.effectNumber == 5 || card111.effectNumber == 10 || card111.effectNumber == 20)
+                    yield return delay6;
+                else yield return delay3;
 
                 Vector3 spawnPoint112 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
-                if (EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint112))
-                    StartCoroutine(CardEffect(PopItem(p1Turn).effectNumber, p1Turn, PopItem(p1Turn)));
+                Item card112 = PopItem(p1Turn);
+                if (EntityManager.Inst.SpawnEntity(p1Turn, card112, spawnPoint112))
+                    StartCoroutine(CardEffect(card112.effectNumber, p1Turn, card112));
+                if (card112.effectNumber == 3 || card112.effectNumber == 11)
+                    yield return delay9;
+                else if (card112.effectNumber == 5 || card112.effectNumber == 10 || card112.effectNumber == 20)
+                    yield return delay6;
+                else yield return delay3;
                 break;
 
-            case 12: // 재활용품 : 내 덱에 이 카드를 넣습니다.
-                Debug.Log(player + "재활용품 발동");
+            case 12: // 결제 : 내 패를 1장 버리고 상대 덱 2장을 버립니다.
+                Debug.Log(player + "결제 발동");
+                if ((p1Turn ? p2Hands.Count : p1Hands.Count) >= 1)
+                {
+                    Card card12 = p1Turn ? p1Hands[Random.Range(0, p1Hands.Count)] : p2Hands[Random.Range(0, p2Hands.Count)];
+                    Vector3 spawnPoint121 = p1Turn ? p1EntitySpawnPoint.position : p2EntitySpawnPoint.position;
+                    var targetCards12 = p1Turn ? p1Hands : p2Hands;
+
+                    if (EntityManager.Inst.SpawnEntity(p1Turn, card12.item, spawnPoint121))
+                    {
+                        targetCards12.Remove(card12);
+                        card12.transform.DOKill();
+                        DestroyImmediate(card12.gameObject);
+                        card12 = null;
+                        CardAlignment(p1Turn);
+                    }
+                }
+
+                Vector3 spawnPoint122 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint122);
+                EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint122);
+
                 break;
 
             case 13: // 올인 : 내 패를 모두 버리고, 그만큼 상대 덱을 버립니다.
@@ -457,19 +512,33 @@ public class CardManager : MonoBehaviour
                 }
                 break;
 
-            case 14: // 분리수거 : 내 수거함에서 무작위로 카드 1장을 가져옵니다.
-                Debug.Log(player + "분리수거 발동");
+            case 14: // 저주 : 내 덱을 1장 버리고 상대 덱 2장을 버립니다. 
+                Debug.Log(player + "저주 발동");
+                Vector3 spawnPoint141 = p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                EntityManager.Inst.SpawnEntity(p1Turn, PopItem(p1Turn), spawnPoint141);
                 
+                Vector3 spawnPoint142 = !p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position;
+                EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint142);
+                EntityManager.Inst.SpawnEntity(!p1Turn, PopItem(!p1Turn), spawnPoint142);
                 break;
 
-            case 15: // 거울치료 : 상대가 마지막으로 사용했던 카드를 사용합니다.
-                Debug.Log(player + "거울치료 발동");
-                EntityManager entitymanager = gameObject.AddComponent<EntityManager>();
-                if ((p1Turn ? entitymanager.p2Entities.Count : entitymanager.p1Entities.Count) == 0)
-                    break;
-                Entity entity15 = p1Turn ? entitymanager.p2Entities[entitymanager.p2Entities.Count - 1] :
-                    entitymanager.p1Entities[entitymanager.p1Entities.Count - 1];
-                StartCoroutine(CardEffect(entity15.item.effectNumber, p1Turn, entity15.item));
+            case 15: // 양보 : 서로 덱 1장을 가져갑니다. 
+                Debug.Log(player + "양보 발동");
+                var cardObject151 = Instantiate(cardPrefab, p1Turn ? p2HandSpawnPoint.position : p1HandSpawnPoint.position, Utils.QI);
+                var card151 = cardObject151.GetComponent<Card>();
+                card151.Setup(PopItem(!p1Turn), p1Turn);
+                (p1Turn ? p1Hands : p2Hands).Add(card151);
+
+                var cardObject152 = Instantiate(cardPrefab, p1Turn ? p1HandSpawnPoint.position : p2HandSpawnPoint.position, Utils.QI);
+                var card152 = cardObject152.GetComponent<Card>();
+                card152.Setup(PopItem(p1Turn), !p1Turn);
+                (!p1Turn ? p1Hands : p2Hands).Add(card152);
+
+                SetOriginOrder(p1Turn);
+                CardAlignment(p1Turn);
+
+                SetOriginOrder(!p1Turn);
+                CardAlignment(!p1Turn);
                 break;
 
             case 16: // 상부상조 : 서로 덱 1장을 뽑습니다.
@@ -550,11 +619,13 @@ public class CardManager : MonoBehaviour
                         CardAlignment(!p1Turn);
                     }
                 }
-
                 break;
 
             case 20: // 남의 떡 : 서로 무작위로 상대 패 1장을 사용합니다. 
                 Debug.Log(player + "남의 떡 발동");
+                effectCard.transform.DOKill();    // 없애버림
+                DestroyImmediate(effectCard.gameObject);
+
                 if ((p1Turn ? p2Hands : p1Hands).Count >= 1)
                 {
                     Card card201 = p1Turn ? p2Hands[Random.Range(0, p2Hands.Count)] : p1Hands[Random.Range(0, p1Hands.Count)];
@@ -567,6 +638,11 @@ public class CardManager : MonoBehaviour
                         card201.transform.DOKill();  
                         DestroyImmediate(card201.gameObject);
                         StartCoroutine(CardEffect(card201.item.effectNumber, p1Turn, card201.item));
+                        if (card201.item.effectNumber == 3 || card201.item.effectNumber == 11)
+                            yield return delay9;
+                        else if (card201.item.effectNumber == 5 || card201.item.effectNumber == 10 || card201.item.effectNumber == 20)
+                            yield return delay6;
+                        else yield return delay3;
                         CardAlignment(!p1Turn);
                     }
                 }
@@ -583,25 +659,31 @@ public class CardManager : MonoBehaviour
                     card202.transform.DOKill();  
                     DestroyImmediate(card202.gameObject);
                     StartCoroutine(CardEffect(card202.item.effectNumber, !p1Turn, card202.item));
+                    if (card202.item.effectNumber == 3 || card202.item.effectNumber == 11)
+                        yield return delay9;
+                    else if (card202.item.effectNumber == 5 || card202.item.effectNumber == 10 || card202.item.effectNumber == 20)
+                        yield return delay6;
+                    else yield return delay3;
                     CardAlignment(p1Turn);
                 }
                 break;
-                
             default:
                 Debug.Log("카드가 목록에 없습니다.");
                 break;
         }
         yield return delay1;
 
-        effectCard.transform.DOKill();    // 없애버림
-        DestroyImmediate(effectCard.gameObject);
-        
+        if (effectNumber != 3 && effectNumber != 5 && effectNumber != 10 && effectNumber != 11 && effectNumber != 20)
+        {
+            effectCard.transform.DOKill();    // 없애버림
+            DestroyImmediate(effectCard.gameObject);
+        }
+
         TurnManager.Inst.isLoading = false;
         CurrentCardNumbering(p1Turn);
         CardAlignment(p1Turn);
         yield return delay1;
     }
-
 
     // #region 마우스 설정
 
@@ -659,7 +741,7 @@ public class CardManager : MonoBehaviour
         {
             Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -65f, -10f);
 
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 13.5f), false);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 17.5f), false);
         }
         else
             card.MoveTransform(card.originPRS, false);

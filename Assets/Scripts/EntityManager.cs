@@ -22,7 +22,7 @@ public class EntityManager : MonoBehaviour
     WaitForSeconds delay1 = new WaitForSeconds(1);  // delay1은 1초 대기
     WaitForSeconds delay2 = new WaitForSeconds(2);  // delay2는 2초 대기
     WaitForSeconds delay3 = new WaitForSeconds(3);  // delay2는 2초 대기
-    WaitForSeconds delay5 = new WaitForSeconds(5);  // delay2는 2초 대기
+    WaitForSeconds delay8 = new WaitForSeconds(8);  // delay2는 2초 대기
 
     // 게임 진행
     void Start()
@@ -58,13 +58,13 @@ public class EntityManager : MonoBehaviour
         if (CardManager.Inst.p2DeckCount.Count > 0)
         {
             CardManager.Inst.TryPutCard(false); // 카드 냄
-            yield return delay5;    // 1초 대기
+            yield return delay8; 
         }
         
-        if (CardManager.Inst.p2DeckCount.Count > 0 && CardManager.Inst.maxCount ==2 && CardManager.Inst.p2Hands.Count >0)
+        if (CardManager.Inst.p2DeckCount.Count > 0 && CardManager.Inst.maxCount == 2 && CardManager.Inst.p2Hands.Count > 0)
         {
             CardManager.Inst.TryPutCard(false); // 카드 냄
-            yield return delay5;    // 1초 대기
+            yield return delay8; 
         }
 
         if (CardManager.Inst.p2DeckCount.Count > 0)
