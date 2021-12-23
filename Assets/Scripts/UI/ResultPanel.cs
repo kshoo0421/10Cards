@@ -17,12 +17,12 @@ public class ResultPanel : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(1);  // ÇöÀç ¾À ·Îµù
+        SceneManager.LoadScene(2);  // ÇöÀç ¾À ·Îµù
     }
 
     public void MenuBack()
     {
-        SceneManager.LoadScene(0);  // ¸Þ´º ¾À ·Îµù
+        SceneManager.LoadScene(1);  // ¸Þ´º ¾À ·Îµù
     }
 
     private void Start() => ScaleZero();

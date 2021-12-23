@@ -35,6 +35,7 @@ public class CardManager : MonoBehaviour
     WaitForSeconds delay6 = new WaitForSeconds(6);  // delay2는 2초 대기
     WaitForSeconds delay9 = new WaitForSeconds(9);  // delay2는 2초 대기
    
+    GameObject deckPercent;
     public List<Card> p1Hands;
     public List<Card> p2Hands;
     public List<Item> p1DeckCount;  // 아이템 버퍼 리스트 선언
@@ -53,6 +54,9 @@ public class CardManager : MonoBehaviour
     // 게임 진행
     void Start()    // 덱 조정 및 아이템 섞기, AddCard, OnTurnStarted 호출
     {
+        deckPercent = GameObject.Find("DeckPercent");
+        p1Percent = deckPercent.GetComponent<DeckPercent>().p1Percent;
+        p2Percent = deckPercent.GetComponent<DeckPercent>().p2Percent;
         SetupItemBuffer();  // 덱 조정 및 아이템 섞기
         maxCount = 1;
         p1PutCount = 0;

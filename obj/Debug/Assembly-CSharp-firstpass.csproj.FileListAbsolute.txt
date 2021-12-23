@@ -340,3 +340,7 @@ C:\Users\shmd02\Desktop\코딩\unity\10Cards-prototype\10Cards\obj\Debug\Assembl
 C:\Users\shmd02\Desktop\코딩\unity\10Cards-prototype\10Cards\obj\Debug\Assembly-CSharp-firstpass.csproj.CopyComplete
 C:\Users\shmd02\Desktop\코딩\unity\10Cards-prototype\10Cards\obj\Debug\Assembly-CSharp-firstpass.dll
 C:\Users\shmd02\Desktop\코딩\unity\10Cards-prototype\10Cards\obj\Debug\Assembly-CSharp-firstpass.pdb
+C:\10Cards\obj\Debug\Assembly-CSharp-firstpass.csproj.AssemblyReference.cache
+C:\10Cards\obj\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache
+C:\10Cards\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\10Cards\obj\Debug\Assembly-CSharp-firstpass.pdb

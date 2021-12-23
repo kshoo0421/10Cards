@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FirstUI.unity
+    path: Assets/Scenes/MenuUI.unity
     guid: 65a5298124cf6304fa6e745130686bc4
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
@@ -15,9 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/DeckMakerScene.unity
     guid: 26f6766c5e74c7a429c780bb6fac26fc
   - enabled: 1
+    path: Assets/Scenes/DeckMakerScene2.unity
+    guid: 34b0395544accc24fbf3a8e2f645daa7
+  - enabled: 1
     path: Assets/Scenes/Option.unity
     guid: d1c8944e9f6933d4cbc01e517852512e
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 6166782b8ffb8fe45b9dafd18d88ecc7
+  - enabled: 1
+    path: Assets/Scenes/First.unity
+    guid: 77c8f908a04c4e648bc68116db867495
   m_configObjects: {}
