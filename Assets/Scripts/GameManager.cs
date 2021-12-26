@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst { get; private set; }
     void Awake() => Inst = this;    // Inst = GameManager 스크립트
 
-    [Multiline(10)]
     [SerializeField] NotificationPanel notificationPanel;   // 메세지 출력용 패널
     WaitForSeconds delay1 = new WaitForSeconds(1);
     [SerializeField] ResultPanel resultPanel;
@@ -16,35 +15,41 @@ public class GameManager : MonoBehaviour
     [SerializeField] TitlePanel titlePanel;
     [SerializeField] CameraEffect cameraEffect;
 
-    // 게임 진행
+    public GameObject p1O;
+    public GameObject p2O;
+    public GameObject randomO;
 
+    // 게임 진행
     void Start()    // 게임 시작
     {
         UISetup();
     }
     
-    void Update()   // 치트키 입력
-    {
-#if UNITY_EDITOR    // 유니티(에디터)에서 치트키 사용(게임 내 X)
-        InputCheatKey();    // 치트키 입력 시 설정대로 실행
-#endif
-    }
-
     // 관련 함수
-    void InputCheatKey()    // 치트키 목록
+    public void RandomTurn()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))  // 1번 누르면
-            TurnManager.OnAddCard?.Invoke(true);  // p1 카드 추가
-
-        if (Input.GetKeyDown(KeyCode.Keypad2))  // 2번 누르면
-            TurnManager.OnAddCard?.Invoke(false); // p2 카드 추가
-
-        if (Input.GetKeyDown(KeyCode.Keypad3))  // 3번 누르면
-            TurnManager.Inst.EndTurn(); // 턴 종료
-
-        if (Input.GetKeyDown(KeyCode.Keypad4))  // 4번 누르면
-            CardManager.Inst.TryPutCard(false); // p2 카드를 냄
+        TurnManager.Inst.eTurnMode = 0;
+        randomO.SetActive(true);
+        p1O.SetActive(false);
+        p2O.SetActive(false);
     }
+
+    public void P1Turn()
+    {
+        TurnManager.Inst.eTurnMode = 1;
+        randomO.SetActive(false);
+        p1O.SetActive(true);
+        p2O.SetActive(false);
+    }
+
+    public void P2Turn()
+    {
+        TurnManager.Inst.eTurnMode = 2;
+        randomO.SetActive(false);
+        p1O.SetActive(false);
+        p2O.SetActive(true);
+    }
+
 
     public void StartGame() // 게임 시작 함수 호출
     {
@@ -72,7 +77,7 @@ public class GameManager : MonoBehaviour
 
         TurnManager.Inst.isLoading = true;
         resultPanel.Show(isP1Win ? "승리" : "패배");
-        cameraEffect.SetGrayScale(true);
         
+        cameraEffect.SetGrayScale(true);
     }
 }

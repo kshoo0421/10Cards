@@ -20,9 +20,9 @@ public class EntityManager : MonoBehaviour
     Entity selectEntity;
     Entity targetPickEntity;
     WaitForSeconds delay1 = new WaitForSeconds(1);  // delay1은 1초 대기
-    WaitForSeconds delay2 = new WaitForSeconds(2);  // delay2는 2초 대기
-    WaitForSeconds delay3 = new WaitForSeconds(3);  // delay2는 2초 대기
-    WaitForSeconds delay8 = new WaitForSeconds(8);  // delay2는 2초 대기
+    WaitForSeconds delay2 = new WaitForSeconds(2);  
+    WaitForSeconds delay3 = new WaitForSeconds(3);
+    WaitForSeconds delay8 = new WaitForSeconds(8);
 
     // 게임 진행
     void Start()

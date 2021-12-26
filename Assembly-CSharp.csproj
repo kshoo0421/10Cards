@@ -56,12 +56,16 @@
     <Compile Include="Assets\Scripts\UI\DeckMaker.cs" />
     <Compile Include="Assets\Scripts\UI\MenuBackButton.cs" />
     <Compile Include="Assets\Scripts\CardManager.cs" />
+    <Compile Include="Assets\Scripts\DeckManager.cs" />
     <Compile Include="Assets\Scripts\UI\ResultPanel.cs" />
     <Compile Include="Assets\Scripts\UI\TitlePanel.cs" />
+    <Compile Include="Assets\Scripts\DeckPercent.cs" />
     <Compile Include="Assets\Scripts\CameraResolution.cs" />
+    <Compile Include="Assets\Scripts\UI\FirstMenu.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Order.cs" />
     <Compile Include="Assets\Scripts\UI\Menu\GUIButton.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
     <Compile Include="Assets\Scripts\UI\DeckSelectButton.cs" />
     <Compile Include="Assets\Scripts\SO\ItemSO.cs" />
@@ -72,9 +76,7 @@
     <Compile Include="Assets\Scripts\CameraEffect.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationPanel.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
-    <Compile Include="Assets\Scripts\DeckPercent.cs" />
-    <Compile Include="Assets\Scripts\DeckManager.cs" />
-    <Compile Include="Assets\Scripts\UI\FirstMenu.cs" />
+    <Compile Include="Assets\Scripts\TutorialManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\TextMesh Pro\Shaders\TMPro.cginc" />

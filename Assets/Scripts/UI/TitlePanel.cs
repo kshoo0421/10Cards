@@ -5,20 +5,14 @@ using UnityEngine;
 public class TitlePanel : MonoBehaviour
 {
     [SerializeField] GameObject endTurnButton;
+    public GameObject eTurn;
 
     public void StartGameClick()
     {
         GameManager.Inst.StartGame();
         Active(false);
-        // ActiveEndButton(true);
+        eTurn.SetActive(false);
     }
-
-    /*
-    public void ActiveEndButton(bool eb)
-    {
-        endTurnButton.SetActive(eb);
-    }
-    */
 
     public void Active(bool isActive)
     {

@@ -994,7 +994,7 @@ Canvas:
   m_GameObject: {fileID: 111598257}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 2089032827}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2581,16 +2581,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitMenu: {fileID: 1000180495}
-  saveMenu: {fileID: 1803995400}
   errorMenu: {fileID: 800256160}
   page1: {fileID: 2132779881}
   page2: {fileID: 317741192}
   page1Button: {fileID: 1342794839}
   page2Button: {fileID: 1901203234}
   countTMP: {fileID: 1129081794}
-  gameMenu:
-    m_Handle: 0
-  DeckManager: {fileID: 0}
   selectCardNumber: 0
   p1Percent: 0000000000000000000000000000000000000000
 --- !u!114 &494402022

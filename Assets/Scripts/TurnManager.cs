@@ -11,22 +11,22 @@ public class TurnManager : MonoBehaviour
     private void Awake() => Inst = this;
 
     [Header("Develop")]
-    [SerializeField] [Tooltip("시작 턴 모드를 정합니다")] ETurnMode eTurnMode;    // 선공(내 턴, 상대 턴, 랜덤) 결정
     [SerializeField] [Tooltip("카드 배분이 매우 빨라집니다")] bool fastMode;    // 빠른 모드 유무
     [SerializeField] [Tooltip("시작 카드 개수를 정합니다")] int startCardCount;    // 시작 패 장수 결정
     [Header("Properties")]
     public bool isLoading; // 게임 끝나면 isLoading을 true로 하면 카드와 엔티티 클릭 방지
     public bool p1Turn; // 내 턴 / 상대 턴 결정
-    enum ETurnMode { Random, P1, P2 }    // enum은 연관된 상수들의 집합. 랜덤, 내 턴, 상대 턴 중 결정
+    public int eTurnMode = 1;    // enum은 연관된 상수들의 집합. 랜덤, 내 턴, 상대 턴 중 결정
     WaitForSeconds delay05 = new WaitForSeconds(0.5f);  // delay05면 진행 시간 0.5초
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);  // delay07이면 진행 시간 0.7초
     public static Action<bool> OnAddCard;   // OnAddCard 함수 설정, 외부 연결
     public static event Action<bool> OnTurnStarted; // 턴 시작 함수 설정, 외부 연결
     public int turnCount;
     [SerializeField] TMP_Text leftButtonTMP;
-
+    public AudioSource myTurnAudio;
+    public AudioSource endTurnAudio;
+    
     // 관련 함수
-
     void GameSetup()    // 고속모드 유무, 선공 결정
     {
         if (fastMode)   // 고속모드면
@@ -34,13 +34,13 @@ public class TurnManager : MonoBehaviour
 
         switch (eTurnMode)  // 선공 결정
         {
-            case ETurnMode.Random:  // case1. random이면
+            case 0:  // case1. random이면
                 p1Turn = Random.Range(0, 2) == 0;   // 둘 중에 하나; a == 0 이 참이면 내 턴, 아니면 상대 턴
                 break;
-            case ETurnMode.P1:  // 내 턴이면
+            case 1:  // 내 턴이면
                 p1Turn = true;  // 내 턴 = true
                 break;
-            case ETurnMode.P2:   // 상대 턴이면
+            case 2:   // 상대 턴이면
                 p1Turn = false; // 내 턴 = false
                 break;
         }
@@ -65,8 +65,10 @@ public class TurnManager : MonoBehaviour
     IEnumerator StartTurnCo()   // 턴 시작 함수
     {
         isLoading = true;   // 로딩 중 표시(기타 행동 방지)
+
         if (p1Turn) // 내 턴이면
         {
+            myTurnAudio.Play();
             GameManager.Inst.Notification("나의 턴");  // 나의 턴 표시
             leftButtonTMP.text = "나의 턴";
         }
@@ -84,6 +86,8 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()   // 턴 종료
     {
         p1Turn = !p1Turn;   // 내 턴에서 상대 턴으로 전환
+        if (p1Turn == true)
+            endTurnAudio.Play();
         CardManager.Inst.p1PutCount = 0;
         CardManager.Inst.p2PutCount = 0;
         if(CardManager.Inst.cardEffect07 == true && CardManager.Inst.maxCount == 1 && turnCount >=2)

@@ -60,7 +60,7 @@ public class DeckSelectButton : MonoBehaviour
     {
         if (totalCardCount == 10)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
         else
         {

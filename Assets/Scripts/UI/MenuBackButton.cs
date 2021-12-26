@@ -13,11 +13,6 @@ public class MenuBackButton : MonoBehaviour
         menuBackButton.SetActive(true);
     }
 
-    public void MenuBackButtonYes()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     public void MenuBackButtonNo()
     {
         menuBackButton.SetActive(false);

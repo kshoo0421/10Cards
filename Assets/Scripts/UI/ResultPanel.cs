@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class ResultPanel : MonoBehaviour
 {
     [SerializeField] TMP_Text resultTMP;
+    GameObject bgm;
 
     public void Show(string message)
     {
@@ -17,18 +18,19 @@ public class ResultPanel : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(2);  // ÇöÀç ¾À ·Îµù
+        SceneManager.LoadScene(2);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½
     }
 
     public void MenuBack()
     {
-        SceneManager.LoadScene(1);  // ¸Þ´º ¾À ·Îµù
+        GameObject.Find("BGMSet").transform.Find("BGM").gameObject.SetActive(true); ;
+        SceneManager.LoadScene(1);  // ï¿½Þ´ï¿½ ï¿½ï¿½ ï¿½Îµï¿½
     }
 
     private void Start() => ScaleZero();
 
     [ContextMenu("ScaleOne")]
-    void scaleOne() => transform.localScale = Vector3.one;
+    void scaleOne() =>  transform.localScale = Vector3.one;
 
     [ContextMenu("ScaleZero")]
     public void ScaleZero() => transform.localScale = Vector3.zero;

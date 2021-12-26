@@ -7,17 +7,15 @@ public class GUIButton : MonoBehaviour
 {
     [SerializeField] GameObject exitMenu;
     [SerializeField] GameObject DeckMenu;
+    [SerializeField] GameObject ExtraMenu;
     public GameObject deckPercent;
-    public GameObject bgm;
-
-    private void Start()
-    {
-        bgm.SetActive(true);
-    }
+    GameObject bgm;
 
     public void GamePlayButton()
     {
         SceneManager.LoadScene(2);
+        bgm = GameObject.Find("BGM");
+        bgm.SetActive(false);
         DontDestroyOnLoad(deckPercent);
     }
 
@@ -32,7 +30,6 @@ public class GUIButton : MonoBehaviour
         deckPercent.GetComponent<DeckPercent>().p1Deck = true;
         SceneManager.LoadScene(3);
         DontDestroyOnLoad(deckPercent);
-        DontDestroyOnLoad(bgm);
     }
 
     public void P2DeckMaker()
@@ -41,26 +38,28 @@ public class GUIButton : MonoBehaviour
         deckPercent.GetComponent<DeckPercent>().p1Deck = false;
         SceneManager.LoadScene(4);
         DontDestroyOnLoad(deckPercent);
-        DontDestroyOnLoad(bgm);
     }
+
+    public void ExtraBtnOn()
+    {
+        ExtraMenu.SetActive(true);
+    }
+
+    public void ExtraBtnOff()
+    {
+        ExtraMenu.SetActive(false);
+    }
+
 
     public void ExitDeck()
     {
         DeckMenu.SetActive(false);
     }
 
-    public void OptionButton()
+    public void TutorialButton()
     {
         SceneManager.LoadScene(5);
         DontDestroyOnLoad(deckPercent);
-        DontDestroyOnLoad(bgm);
-    }
-
-    public void TutorialButton()
-    {
-        SceneManager.LoadScene(6);
-        DontDestroyOnLoad(deckPercent);
-        DontDestroyOnLoad(bgm);
     }
 
     public void ExitButton()
