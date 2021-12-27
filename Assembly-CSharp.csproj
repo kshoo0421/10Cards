@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\DeckPercent.cs" />
     <Compile Include="Assets\Scripts\CameraResolution.cs" />
     <Compile Include="Assets\Scripts\UI\FirstMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\Menu\BGMOnOff.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Order.cs" />
     <Compile Include="Assets\Scripts\UI\Menu\GUIButton.cs" />
@@ -73,10 +74,11 @@
     <Compile Include="Assets\Scripts\TurnManager.cs" />
     <Compile Include="Assets\Scripts\UI\EndTurnButton.cs" />
     <Compile Include="Assets\Scripts\EntityManager.cs" />
+    <Compile Include="Assets\Scripts\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\CameraEffect.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationPanel.cs" />
     <Compile Include="Assets\Scripts\Card.cs" />
-    <Compile Include="Assets\Scripts\TutorialManager.cs" />
+    <Compile Include="Assets\Scripts\BGMManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\TextMesh Pro\Shaders\TMPro.cginc" />

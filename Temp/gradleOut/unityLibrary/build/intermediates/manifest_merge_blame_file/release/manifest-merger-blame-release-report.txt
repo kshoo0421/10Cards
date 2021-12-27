@@ -105,7 +105,7 @@
 59-->C:\10Cards\Temp\gradleOut\unityLibrary\src\main\AndroidManifest.xml:17:5-101
 60            android:name="unity.build-id"
 60-->C:\10Cards\Temp\gradleOut\unityLibrary\src\main\AndroidManifest.xml:17:16-45
-61            android:value="00470249-76e9-43b8-acf6-618fe83ddf11" />
+61            android:value="2177abe0-9852-4616-9b0e-ea90908f9565" />
 61-->C:\10Cards\Temp\gradleOut\unityLibrary\src\main\AndroidManifest.xml:17:46-98
 62    </application>
 63

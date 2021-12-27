@@ -1,4 +1,4 @@
-#Mon Dec 27 02:33:24 KST 2021
+#Tue Dec 28 01:20:50 KST 2021
 base.0=C\:\\10Cards\\Temp\\gradleOut\\launcher\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

@@ -9,14 +9,57 @@ public class GUIButton : MonoBehaviour
     [SerializeField] GameObject DeckMenu;
     [SerializeField] GameObject ExtraMenu;
     public GameObject deckPercent;
+    public GameObject bgmXImage;
     GameObject bgm;
+    int isBgmOn = 1;
+
+    private void Awake()
+    {
+        if (!PlayerPrefs.HasKey("BGMOn"))
+            return;
+
+        isBgmOn = PlayerPrefs.GetInt("BGMOn");
+        bgm = GameObject.Find("BGM");
+
+        if (isBgmOn == 1)
+        {
+            bgm.SetActive(true);
+            bgmXImage.SetActive(false);
+            return;
+        }
+        else
+        {
+            bgm.SetActive(false);
+            bgmXImage.SetActive(true);
+        }
+    }
+
+    public void BGMButton()
+    {
+        if(isBgmOn == 1)
+        {
+            bgm = GameObject.Find("BGM");
+            bgm.SetActive(false);
+            bgmXImage.SetActive(true);
+            isBgmOn = 0;
+            PlayerPrefs.SetInt("BGMOn", 0);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            GameObject.Find("BGMSet").transform.Find("BGM").gameObject.SetActive(true);
+            bgmXImage.SetActive(false);
+            isBgmOn = 1;
+            PlayerPrefs.SetInt("BGMOn", 1);
+            PlayerPrefs.Save();
+        }
+    }
 
     public void GamePlayButton()
     {
         SceneManager.LoadScene(2);
         bgm = GameObject.Find("BGM");
         bgm.SetActive(false);
-        DontDestroyOnLoad(deckPercent);
     }
 
     public void DeckMakerButton()
@@ -29,7 +72,6 @@ public class GUIButton : MonoBehaviour
         deckPercent = GameObject.Find("DeckPercent");
         deckPercent.GetComponent<DeckPercent>().p1Deck = true;
         SceneManager.LoadScene(3);
-        DontDestroyOnLoad(deckPercent);
     }
 
     public void P2DeckMaker()
@@ -37,7 +79,6 @@ public class GUIButton : MonoBehaviour
         deckPercent = GameObject.Find("DeckPercent");
         deckPercent.GetComponent<DeckPercent>().p1Deck = false;
         SceneManager.LoadScene(4);
-        DontDestroyOnLoad(deckPercent);
     }
 
     public void ExtraBtnOn()
@@ -59,7 +100,6 @@ public class GUIButton : MonoBehaviour
     public void TutorialButton()
     {
         SceneManager.LoadScene(5);
-        DontDestroyOnLoad(deckPercent);
     }
 
     public void ExitButton()

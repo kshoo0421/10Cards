@@ -18,13 +18,13 @@ public class ResultPanel : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(2);  // ���� �� �ε�
+        SceneManager.LoadScene(2);
     }
 
     public void MenuBack()
     {
-        GameObject.Find("BGMSet").transform.Find("BGM").gameObject.SetActive(true); ;
-        SceneManager.LoadScene(1);  // �޴� �� �ε�
+        GameObject.Find("BGMSet").transform.Find("BGM").gameObject.SetActive(true);
+        SceneManager.LoadScene(1); 
     }
 
     private void Start() => ScaleZero();
